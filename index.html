@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>早安圖王｜LINE AI 祝福圖，新朋友免費送 5 張</title>
-<meta name="description" content="在 LINE 裡點一下、打上名字，AI 約 40 秒做好專屬早安圖、生日、節慶、神佛祝福圖，直接轉傳親友。加好友免費送 5 張，之後每張 NT$8～10。">
+<title>早安圖王｜AI 早安圖、長輩圖產生器，LINE 加好友送 5 張</title>
+<meta name="description" content="長輩最愛的早安圖、長輩圖！在 LINE 打上名字，AI 約 40 秒做好；生日、中秋、過年、神明保佑圖都有。加好友免費送 5 張，之後每張 NT$8～10。">
 <link rel="canonical" href="https://triplehai.com/zaoan/">
 <meta name="theme-color" content="#b11a2a">
 <link rel="icon" type="image/png" sizes="192x192" href="img/icon.png">
@@ -12,17 +12,235 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:site_name" content="早安圖王">
-<meta property="og:title" content="早安圖王｜LINE AI 祝福圖，新朋友免費送 5 張">
-<meta property="og:description" content="在 LINE 裡點一下、打上名字，AI 約 40 秒做好專屬早安圖、生日、節慶、神佛祝福圖，直接轉傳親友。加好友免費送 5 張，之後每張 NT$8～10。">
+<meta property="og:title" content="早安圖王｜AI 早安圖、長輩圖產生器，LINE 加好友送 5 張">
+<meta property="og:description" content="長輩最愛的早安圖、長輩圖！在 LINE 打上名字，AI 約 40 秒做好；生日、中秋、過年、神明保佑圖都有。加好友免費送 5 張，之後每張 NT$8～10。">
 <meta property="og:url" content="https://triplehai.com/zaoan/">
-<meta property="og:image" content="https://triplehai.com/zaoan/img/logo-512.jpg">
-<meta property="og:image:width" content="512">
-<meta property="og:image:height" content="512">
-<meta name="twitter:card" content="summary">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&amp;family=Noto+Sans+TC:wght@400;500;700;900&amp;family=Ma+Shan+Zheng&amp;display=swap" rel="stylesheet">
+<meta property="og:image" content="https://triplehai.com/zaoan/img/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="早安圖王：在 LINE 打上名字，AI 做好專屬早安圖、長輩圖、生日與節慶祝福圖">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="早安圖王｜AI 早安圖、長輩圖產生器，LINE 加好友送 5 張">
+<meta name="twitter:description" content="長輩最愛的早安圖、長輩圖！在 LINE 打上名字，AI 約 40 秒做好；生日、中秋、過年、神明保佑圖都有。加好友免費送 5 張，之後每張 NT$8～10。">
+<meta name="twitter:image" content="https://triplehai.com/zaoan/img/og-image.jpg">
+<meta name="twitter:image:alt" content="早安圖王：在 LINE 打上名字，AI 做好專屬早安圖、長輩圖、生日與節慶祝福圖">
+<link rel="preload" as="image" href="img/sample-1.webp" type="image/webp" fetchpriority="high">
+<style>
+@font-face{font-family:"Noto Serif TC";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/serif-700.379df39a.woff2) format("woff2")}
+@font-face{font-family:"Noto Serif TC";font-style:normal;font-weight:900;font-display:swap;src:url(fonts/serif-900.4c4da8a7.woff2) format("woff2")}
+@font-face{font-family:"Noto Sans TC";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/sans-400.7a58bd7d.woff2) format("woff2")}
+@font-face{font-family:"Noto Sans TC";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/sans-700.a8e1551e.woff2) format("woff2")}
+@font-face{font-family:"Noto Sans TC";font-style:normal;font-weight:900;font-display:swap;src:url(fonts/sans-900.cd46990d.woff2) format("woff2")}
+@font-face{font-family:"Ma Shan Zheng";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/brush-400.13be43dc.woff2) format("woff2")}
+</style>
 <link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Organization",
+   "@id": "https://triplehai.com/zaoan/#org",
+   "name": "艾鐸有限公司",
+   "legalName": "艾鐸有限公司",
+   "url": "https://triplehai.com/zaoan/",
+   "logo": {
+    "@type": "ImageObject",
+    "url": "https://triplehai.com/zaoan/img/logo-512.jpg",
+    "width": 512,
+    "height": 512
+   },
+   "email": "contact@triplehai.com",
+   "taxID": "62222415",
+   "sameAs": [
+    "https://line.me/R/ti/p/@581vndzf"
+   ],
+   "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "email": "contact@triplehai.com",
+    "url": "https://line.me/R/ti/p/@581vndzf",
+    "availableLanguage": "zh-Hant-TW"
+   }
+  },
+  {
+   "@type": "WebSite",
+   "@id": "https://triplehai.com/zaoan/#website",
+   "name": "早安圖王",
+   "url": "https://triplehai.com/zaoan/",
+   "inLanguage": "zh-Hant-TW",
+   "publisher": {
+    "@id": "https://triplehai.com/zaoan/#org"
+   }
+  },
+  {
+   "@type": "Service",
+   "@id": "https://triplehai.com/zaoan/#service",
+   "name": "早安圖王",
+   "alternateName": [
+    "早安圖王 AI 祝福圖",
+    "AI 早安圖、長輩圖產生器"
+   ],
+   "serviceType": "AI 早安圖、長輩圖與祝福圖生成（LINE 官方帳號）",
+   "description": "在 LINE 官方帳號點選單、打上名字或想說的話，AI 約 40 秒做好專屬早安圖、晚安圖、生日、節慶與神佛祝福圖，可直接轉傳親友。加好友免費送 5 點，1 點 = 1 張圖。",
+   "url": "https://triplehai.com/zaoan/",
+   "image": "https://triplehai.com/zaoan/img/og-image.jpg",
+   "provider": {
+    "@id": "https://triplehai.com/zaoan/#org"
+   },
+   "brand": {
+    "@type": "Brand",
+    "name": "早安圖王"
+   },
+   "areaServed": {
+    "@type": "Country",
+    "name": "TW"
+   },
+   "availableChannel": {
+    "@type": "ServiceChannel",
+    "serviceUrl": "https://line.me/R/ti/p/@581vndzf"
+   },
+   "offers": [
+    {
+     "@type": "Offer",
+     "name": "新朋友體驗（加好友送 5 點，無使用期限）",
+     "price": "0",
+     "priceCurrency": "TWD",
+     "availability": "https://schema.org/InStock",
+     "url": "https://triplehai.com/zaoan/pricing.html#plans"
+    },
+    {
+     "@type": "Offer",
+     "name": "單張（1 點）",
+     "price": "10",
+     "priceCurrency": "TWD",
+     "availability": "https://schema.org/InStock",
+     "url": "https://triplehai.com/zaoan/pricing.html#plans"
+    },
+    {
+     "@type": "Offer",
+     "name": "10 點方案",
+     "price": "90",
+     "priceCurrency": "TWD",
+     "availability": "https://schema.org/InStock",
+     "url": "https://triplehai.com/zaoan/pricing.html#plans"
+    },
+    {
+     "@type": "Offer",
+     "name": "20 點方案",
+     "price": "160",
+     "priceCurrency": "TWD",
+     "availability": "https://schema.org/InStock",
+     "url": "https://triplehai.com/zaoan/pricing.html#plans"
+    }
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "@id": "https://triplehai.com/zaoan/#faq",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "要下載 App 嗎？",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "不用。全部在 LINE 裡完成，就像聊天一樣：點聊天室下方的選單選主題，做好的圖會直接傳給您。"
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "要錢嗎？免費的 5 張怎麼用？",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "加好友就免費送 5 點，可以做 5 張圖，任何模板都能用，免費點數沒有使用期限。用完之後想繼續做，再買點數：NT$10 買 1 點、NT$90 買 10 點、NT$160 買 20 點（皆含稅）。不買也不會被收費。"
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "圖上可以加「某某某早安」這樣的字嗎？",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "可以！選好模板和風格後，輸入名字或想說的話，例如「美華姊早安」「爸爸生日快樂」，就會寫在圖上。"
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "做一張圖要等多久？",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "大約 40 秒。做好會自動傳到聊天室，等待時不用一直按。"
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "怎麼付款？",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "在 LINE 聊天室下方選單點「剩餘點數／儲值」，選好方案後用信用卡一次付清，由藍新金流處理付款，我們不會儲存您的卡號。\n付款後由綠界開立電子發票，寄到您購買時填的 Email，也可以填手機條碼載具（不提供捐贈）。"
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "圖沒做出來，或字不對，會扣點嗎？",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "生圖失敗一律不扣點，不論是什麼原因；內容被安全過濾擋下來，也不扣點。中文字一般都清楚好讀，但 AI 每次畫的結果不一定相同，成功送出的圖會扣 1 點。"
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "買了用不完，可以退款嗎？",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "購買後 7 天內可以。那筆點數都沒用過，全額退款；有用過但還有剩，剩下的點數按比例退款（例：NT$90 買 10 點、用了 3 點，退 NT$63）。購買後超過 7 天，恕不退款（公司終止服務時除外）。款項退回原付款信用卡。免費贈送的點數不能退款。\n申請方式：LINE 選單「剩餘點數／儲值」→ 退款頁面。詳細退款政策"
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "點數多久會到期？",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "免費送的 5 點沒有期限。購買的點數從購買日起算 365 天內有效；邀請朋友得到的點數 90 天內有效。使用時會先扣邀請得到的點數，再扣免費送的 5 點，最後才扣付費點數（付費點數先到期的先扣），幫您少浪費。"
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "做好的圖可以轉傳、可以一直留著嗎？",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "可以轉傳！圖會直接傳到 LINE 聊天室，按住圖片就能轉傳給親友或群組。\n提醒您：圖片只是暫時存放在系統裡供傳送，喜歡的圖請自己在 LINE 裡存到手機。"
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "可以把點數送給家人用嗎？",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "點數不能轉讓給其他 LINE 帳號。家人也可以自己加好友，一樣會拿到 5 點免費體驗。"
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "邀請朋友有什麼好處？",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "在 LINE 裡點「🎁 邀請朋友送點數」，選朋友把邀請分享出去。朋友是第一次加入早安圖王，並且做出第一張圖，您就得 1 點，最多可以得 5 點。朋友一樣有加好友送的 5 張免費。\n邀請得到的點數 90 天內有效，不能退款、不能轉送。詳細規則"
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "會不會一直收到廣告訊息？",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "不會。我們只會在您的付費點數快到期時提醒（到期前 30 天、7 天和當天）；另外，加好友後如果 7 天都還沒用過，會提醒您一次。有邀請朋友的話，朋友加入時會通知您得到點數，邀請得到的點數到期前 7 天也會提醒一次。其他時間不主動打擾。"
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
+
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X3FCV1GY"></script>
 <script>
@@ -36,7 +254,7 @@
 <a class="skip" href="#main">跳到主要內容</a>
 <header class="topbar">
   <div class="topbar-in">
-    <a class="brand" href="index.html" aria-label="早安圖王 首頁">
+    <a class="brand" href="index.html">
       <span class="seal" aria-hidden="true">王</span>
       <span class="brand-text">
         <span class="brand-name">早安圖王</span>
@@ -58,7 +276,7 @@
   <!-- ===== Hero ===== -->
   <section class="hero">
     <div class="hero-copy">
-      <span class="eyebrow"><span class="dot" aria-hidden="true"></span>LINE 官方帳號・AI 祝福圖</span>
+      <span class="eyebrow"><span class="dot" aria-hidden="true"></span>LINE 官方帳號・AI 早安圖／長輩圖</span>
       <h1 class="hero-title">
         每天一張<br>
         <span class="red">最得體</span>的<span class="gold">祝福圖</span><br>
@@ -66,7 +284,7 @@
       </h1>
       <p class="hero-lead">
         早安、晚安、生日快樂、過年、中秋……
-        <b>長輩在 LINE 群組最愛轉傳的那種圖</b>，現在在 LINE 裡<b>點選單、打上名字，大約 40 秒就做好</b>，繁體中文字清楚好讀。不用學、不用下載 App。
+        <b>長輩在 LINE 群組最愛轉傳的那種早安圖、長輩圖</b>，現在在 LINE 裡<b>點選單、打上名字，大約 40 秒就做好</b>，繁體中文字清楚好讀。不用學、不用下載 App。
       </p>
 
       <div class="cta-row">
@@ -83,7 +301,7 @@
 
     <div class="hero-art">
       <div class="scroll-frame">
-        <img src="img/sample-1.jpg" alt="早安圖範例：向日葵與玫瑰，寫著「早安，美好的一天」" width="800" height="800">
+        <picture><source srcset="img/sample-1.webp" type="image/webp"><img src="img/sample-1.jpg" fetchpriority="high" alt="AI 早安圖範例：向日葵與玫瑰，寫著「早安，美好的一天」" width="800" height="800"></picture>
       </div>
       <div class="coin tr" aria-hidden="true">王</div>
       <div class="coin bl" aria-hidden="true">福</div>
@@ -110,7 +328,7 @@
   <section class="sec">
     <div class="sec-head">
       <div class="sec-eyebrow">為什麼做這個</div>
-      <h2 class="sec-title">爸媽想傳祝福圖，<br>但每天都傳<span class="red">同幾張</span>。</h2>
+      <h2 class="sec-title">爸媽想傳早安圖，<br>但每天都傳<span class="red">同幾張</span>。</h2>
       <p class="sec-sub">
         LINE 家族群、里民群、老同學群——每天都有人傳「早安」「晚安」「平安」。
         網路上的圖千篇一律、沒有名字，還常常是簡體字。今天就讓長輩傳的那一張，<b>是最合心意、最得體的</b>。
@@ -189,7 +407,7 @@
 
     <div class="how-extra">
       <figure class="menu-shot">
-        <img src="img/rich-menu.jpg" alt="早安圖王 LINE 選單：早安、晚安、生日、節慶圖、祝賀圖、神佛加持、剩餘點數／儲值、自己打字" width="1000" height="674" loading="lazy">
+        <picture><source srcset="img/rich-menu.webp" type="image/webp"><img src="img/rich-menu.jpg" alt="早安圖王 LINE 選單：早安、晚安、生日、節慶圖、祝賀圖、神佛加持、剩餘點數／儲值、自己打字" width="1000" height="674" loading="lazy"></picture>
         <figcaption>LINE 聊天室下方的選單畫面</figcaption>
       </figure>
       <div class="note-card">
@@ -204,12 +422,12 @@
     <div class="sec-head">
       <div class="sec-eyebrow">作品示例</div>
       <h2 class="sec-title">一張圖，<span class="red">勝過一千則貼圖</span></h2>
-      <p class="sec-sub">以下都是 AI 依照實際模板和文字畫出來的成品，可以加上收件人的名字或想說的話。</p>
+      <p class="sec-sub">以下的早安圖、生日祝福圖、神明保佑圖，都是 AI 依照實際模板和文字畫出來的成品，可以加上收件人的名字或想說的話。</p>
     </div>
 
     <div class="gallery-stage">
       <div class="poster">
-        <img src="img/sample-3.jpg" alt="神佛加持範例：觀世音菩薩，寫著「神明保佑 平安如意」" width="800" height="800" loading="lazy">
+        <picture><source srcset="img/sample-3.webp" type="image/webp"><img src="img/sample-3.jpg" alt="神明保佑圖範例：觀世音菩薩，寫著「神明保佑 平安如意」" width="800" height="800" loading="lazy"></picture>
         <div class="poster-label">神佛加持</div>
       </div>
       <div class="gallery-text">
@@ -222,7 +440,7 @@
 
     <div class="gallery-stage flip">
       <div class="poster">
-        <img src="img/sample-2.jpg" alt="生日快樂範例：壽桃與蛋糕，寫著「祝媽媽生日快樂 福如東海」" width="800" height="800" loading="lazy">
+        <picture><source srcset="img/sample-2.webp" type="image/webp"><img src="img/sample-2.jpg" alt="生日祝福圖範例：壽桃與蛋糕，寫著「祝媽媽生日快樂 福如東海」" width="800" height="800" loading="lazy"></picture>
         <div class="poster-label">生日快樂</div>
       </div>
       <div class="gallery-text">
@@ -235,19 +453,19 @@
 
     <div class="sample-row">
       <figure class="sample">
-        <img src="img/sample-1.jpg" alt="早安圖範例：向日葵與玫瑰，寫著「早安，美好的一天」" width="800" height="800" loading="lazy">
+        <picture><source srcset="img/sample-1.webp" type="image/webp"><img src="img/sample-1.jpg" alt="AI 早安圖範例：向日葵與玫瑰，寫著「早安，美好的一天」" width="800" height="800" loading="lazy"></picture>
         <figcaption>早安圖<span>「早安，美好的一天」</span></figcaption>
       </figure>
       <figure class="sample">
-        <img src="img/sample-2.jpg" alt="生日快樂範例：壽桃與蛋糕，寫著「祝媽媽生日快樂 福如東海」" width="800" height="800" loading="lazy">
+        <picture><source srcset="img/sample-2.webp" type="image/webp"><img src="img/sample-2.jpg" alt="生日祝福圖範例：壽桃與蛋糕，寫著「祝媽媽生日快樂 福如東海」" width="800" height="800" loading="lazy"></picture>
         <figcaption>生日快樂<span>「祝媽媽生日快樂 福如東海」</span></figcaption>
       </figure>
       <figure class="sample">
-        <img src="img/sample-3.jpg" alt="神佛加持範例：觀世音菩薩，寫著「神明保佑 平安如意」" width="800" height="800" loading="lazy">
+        <picture><source srcset="img/sample-3.webp" type="image/webp"><img src="img/sample-3.jpg" alt="神明保佑圖範例：觀世音菩薩，寫著「神明保佑 平安如意」" width="800" height="800" loading="lazy"></picture>
         <figcaption>神佛加持<span>「神明保佑 平安如意」</span></figcaption>
       </figure>
       <figure class="sample">
-        <img src="img/sample-4.jpg" alt="過年節慶範例：燈籠與牡丹，寫著「恭賀新禧 萬事如意」" width="800" height="800" loading="lazy">
+        <picture><source srcset="img/sample-4.webp" type="image/webp"><img src="img/sample-4.jpg" alt="過年祝福圖範例：燈籠與牡丹，寫著「恭賀新禧 萬事如意」" width="800" height="800" loading="lazy"></picture>
         <figcaption>過年大吉<span>「恭賀新禧 萬事如意」</span></figcaption>
       </figure>
     </div>

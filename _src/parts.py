@@ -3,11 +3,11 @@ LINE_URL = "https://line.me/R/ti/p/@581vndzf"
 
 LINE_ICON = '<span class="line-icon" aria-hidden="true">LINE</span>'
 
-FONTS = ("https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900"
-         "&amp;family=Noto+Sans+TC:wght@400;500;700;900&amp;family=Ma+Shan+Zheng&amp;display=swap")
+OG_IMAGE = BASE + "img/og-image.jpg"
+OG_ALT = "早安圖王：在 LINE 打上名字，AI 做好專屬早安圖、長輩圖、生日與節慶祝福圖"
 
 
-def head(title, desc, path, body_class=""):
+def head(title, desc, path, body_class="", jsonld="", preload=""):
     url = BASE + path
     bc = f' class="{body_class}"' if body_class else ""
     return f'''<!doctype html>
@@ -27,14 +27,20 @@ def head(title, desc, path, body_class=""):
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:url" content="{url}">
-<meta property="og:image" content="{BASE}img/logo-512.jpg">
-<meta property="og:image:width" content="512">
-<meta property="og:image:height" content="512">
-<meta name="twitter:card" content="summary">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="{FONTS}" rel="stylesheet">
+<meta property="og:image" content="{OG_IMAGE}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{OG_ALT}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{title}">
+<meta name="twitter:description" content="{desc}">
+<meta name="twitter:image" content="{OG_IMAGE}">
+<meta name="twitter:image:alt" content="{OG_ALT}">
+{preload}<style>
+__FONT_FACE__
+</style>
 <link rel="stylesheet" href="style.css">
+{jsonld}
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X3FCV1GY"></script>
 <script>
@@ -58,7 +64,7 @@ def header(current):
     )
     return f'''<header class="topbar">
   <div class="topbar-in">
-    <a class="brand" href="index.html" aria-label="早安圖王 首頁">
+    <a class="brand" href="index.html">
       <span class="seal" aria-hidden="true">王</span>
       <span class="brand-text">
         <span class="brand-name">早安圖王</span>

@@ -55,6 +55,7 @@ body::before {
 main, .site-footer { position: relative; z-index: 1; }
 
 img { max-width: 100%; height: auto; display: block; }
+picture { display: contents; }
 a { color: var(--red); text-underline-offset: 4px; text-decoration-thickness: 2px; }
 a:hover { color: var(--red-deep); }
 :focus-visible { outline: 4px solid var(--red); outline-offset: 3px; border-radius: 6px; }
