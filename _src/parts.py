@@ -42,12 +42,12 @@ __FONT_FACE__
 <link rel="stylesheet" href="style.css">
 {jsonld}
 <!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-55X3FCV1GY"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QWQ6SVBYF4"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){{dataLayer.push(arguments);}}
   gtag('js', new Date());
-  gtag('config', 'G-55X3FCV1GY');
+  gtag('config', 'G-QWQ6SVBYF4');
 </script>
 </head>
 <body{bc}>
