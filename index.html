@@ -240,6 +240,19 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-QWQ6SVBYF4');
+  // 加 LINE 好友按鈕點擊 → GA4 重要事件 add_friend_click（location＝按鈕所在區塊）
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href*="line.me/R/ti/p"]');
+    if (!a) return;
+    var box = a.closest('section[id], .hero, header, footer, .float-cta');
+    var loc = box ? (box.id || (box.classList.contains('hero') ? 'hero' : box.tagName.toLowerCase())) : 'other';
+    if (box && box.classList && box.classList.contains('float-cta')) loc = 'float';
+    gtag('event', 'add_friend_click', {
+      location: loc,
+      page: location.pathname,
+      transport_type: 'beacon'
+    });
+  });
 </script>
 </head>
 <body class="has-float">
