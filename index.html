@@ -26,11 +26,11 @@
 <meta name="twitter:image:alt" content="早安圖王：在 LINE 打上名字，AI 做好專屬早安圖、長輩圖、生日與節慶祝福圖">
 <link rel="preload" as="image" href="img/sample-1.webp" type="image/webp" fetchpriority="high">
 <style>
-@font-face{font-family:"Noto Serif TC";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/serif-700.379df39a.woff2) format("woff2")}
-@font-face{font-family:"Noto Serif TC";font-style:normal;font-weight:900;font-display:swap;src:url(fonts/serif-900.4c4da8a7.woff2) format("woff2")}
-@font-face{font-family:"Noto Sans TC";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/sans-400.7a58bd7d.woff2) format("woff2")}
-@font-face{font-family:"Noto Sans TC";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/sans-700.a8e1551e.woff2) format("woff2")}
-@font-face{font-family:"Noto Sans TC";font-style:normal;font-weight:900;font-display:swap;src:url(fonts/sans-900.cd46990d.woff2) format("woff2")}
+@font-face{font-family:"Noto Serif TC";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/serif-700.7be59e51.woff2) format("woff2")}
+@font-face{font-family:"Noto Serif TC";font-style:normal;font-weight:900;font-display:swap;src:url(fonts/serif-900.6d26016c.woff2) format("woff2")}
+@font-face{font-family:"Noto Sans TC";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/sans-400.5e167b03.woff2) format("woff2")}
+@font-face{font-family:"Noto Sans TC";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/sans-700.7bc97941.woff2) format("woff2")}
+@font-face{font-family:"Noto Sans TC";font-style:normal;font-weight:900;font-display:swap;src:url(fonts/sans-900.22a73b27.woff2) format("woff2")}
 @font-face{font-family:"Ma Shan Zheng";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/brush-400.13be43dc.woff2) format("woff2")}
 </style>
 <link rel="stylesheet" href="style.css">
@@ -176,7 +176,7 @@
      "name": "怎麼付款？",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "在 LINE 聊天室下方選單點「剩餘點數／儲值」，選好方案後用信用卡一次付清，由藍新金流處理付款，我們不會儲存您的卡號。\n付款後由綠界開立電子發票，寄到您購買時填的 Email，也可以填手機條碼載具（不提供捐贈）。"
+      "text": "在 LINE 聊天室下方選單點「剩餘點數／儲值」，選好方案，再選付款方式：\n・信用卡一次付清，或手機支付（Apple Pay／Google Pay／Samsung Pay）・沒有信用卡？可以用 ATM 轉帳，或到 7-11、全家、萊爾富、OK 超商繳費（超商代碼或條碼；NT$10 單張不能用超商繳費）\nATM、超商要在拿到繳費資料後 3 天內繳費，繳完點數會自動加上。ATM、超商付款買的點數恕不退款，需要退款保障請選信用卡或手機支付。付款由藍新金流處理，我們不會儲存您的卡號。\n付款後由綠界開立電子發票。Email 可填可不填，填了就寄給您；也可以填手機條碼載具（不提供捐贈）。"
      }
     },
     {
@@ -192,7 +192,7 @@
      "name": "買了用不完，可以退款嗎？",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "購買後 7 天內可以。那筆點數都沒用過，全額退款；有用過但還有剩，剩下的點數按比例退款（例：NT$90 買 10 點、用了 3 點，退 NT$63）。購買後超過 7 天，恕不退款（公司終止服務時除外）。款項退回原付款信用卡。免費贈送的點數不能退款。\n申請方式：LINE 選單「剩餘點數／儲值」→ 退款頁面。詳細退款政策"
+      "text": "用信用卡或手機支付購買的，付款後 7 天內可以。那筆點數都沒用過，全額退款；有用過但還有剩，剩下的點數按比例退款（例：NT$90 買 10 點、用了 3 點，退 NT$63）。超過 7 天恕不退款（公司終止服務時除外）。款項退回原來付款的信用卡。\n用 ATM 轉帳、超商代碼、超商條碼購買的點數，恕不退款。免費送的點數、邀請得到的點數也不能退款。\n申請方式：LINE 選單「剩餘點數／儲值」→ 退款頁面。詳細退款政策"
      }
     },
     {
@@ -307,7 +307,7 @@
 
       <ul class="trust-row">
         <li><span class="pip" aria-hidden="true">●</span>加好友<b>免費 5 張</b></li>
-        <li><span class="pip" aria-hidden="true">●</span>付費用<b>信用卡</b>一次付清</li>
+        <li><span class="pip" aria-hidden="true">●</span>可刷卡、<b>ATM</b>、<b>超商</b>付款</li>
         <li><span class="pip" aria-hidden="true">●</span>最低每張 <b>NT$8</b></li>
       </ul>
     </div>
@@ -366,7 +366,7 @@
           <li><span class="mark v" aria-hidden="true">✓</span>可以加上親友的名字，獨一無二</li>
           <li><span class="mark v" aria-hidden="true">✓</span>繁體中文、字清楚、有台灣味</li>
           <li><span class="mark v" aria-hidden="true">✓</span>過年、端午、中秋等節日，依節日期間開放</li>
-          <li><span class="mark v" aria-hidden="true">✓</span>信用卡一次付清，最低每張 NT$8</li>
+          <li><span class="mark v" aria-hidden="true">✓</span>信用卡、手機支付、ATM、超商都能付，最低每張 NT$8</li>
         </ul>
       </div>
     </div>
@@ -547,12 +547,12 @@
       <div class="feat">
         <div class="feat-ico" aria-hidden="true">退</div>
         <h3>可以退款</h3>
-        <p>購買 7 天內沒用過可全額退；用過一部分，剩下的點數按比例退，退回原信用卡。超過 7 天恕不退款。</p>
+        <p>用信用卡、手機支付購買，7 天內沒用過可全額退；用過一部分，剩下的點數按比例退。超過 7 天，或用 ATM、超商付款，恕不退款。</p>
       </div>
       <div class="feat">
         <div class="feat-ico" aria-hidden="true">安</div>
         <h3>安心付款</h3>
-        <p>信用卡由藍新金流處理，我們不儲存卡號。圖片只暫存供傳送，喜歡的圖請自己存到手機。</p>
+        <p>付款由藍新金流處理，我們不儲存卡號。圖片只暫存供傳送，喜歡的圖請自己存到手機。</p>
       </div>
     </div>
   </section>
@@ -601,8 +601,8 @@
         <p class="tier-per"><b>1 點</b>・每張 NT$10</p>
         <ul>
           <li>1 張祝福圖</li>
-          <li>購買日起 365 天有效</li>
-          <li>7 日內沒用過可全額退款</li>
+          <li>付款完成起 365 天有效</li>
+          <li>信用卡、手機支付、ATM 都能付</li>
         </ul>
         <a href="https://line.me/R/ti/p/@581vndzf" rel="noopener" class="btn-ghost block">加好友後在 LINE 購買</a>
       </div>
@@ -615,8 +615,8 @@
         <p class="tier-per"><b>10 點</b>・平均每張 NT$9・省 NT$10</p>
         <ul>
           <li>10 張祝福圖</li>
-          <li>購買日起 365 天有效</li>
-          <li>7 日內用剩的點數可按比例退款</li>
+          <li>付款完成起 365 天有效</li>
+          <li>信用卡、手機支付、ATM、超商都能付</li>
         </ul>
         <a class="btn-line block" href="https://line.me/R/ti/p/@581vndzf" rel="noopener"><span class="line-icon" aria-hidden="true">LINE</span><span>加好友後在 LINE 購買</span></a>
       </div>
@@ -629,24 +629,26 @@
         <p class="tier-per"><b>20 點</b>・平均每張 NT$8・省 NT$40</p>
         <ul>
           <li>20 張祝福圖</li>
-          <li>購買日起 365 天有效</li>
-          <li>7 日內用剩的點數可按比例退款</li>
+          <li>付款完成起 365 天有效</li>
+          <li>信用卡、手機支付、ATM、超商都能付</li>
         </ul>
         <a href="https://line.me/R/ti/p/@581vndzf" rel="noopener" class="btn-ghost block">加好友後在 LINE 購買</a>
       </div>
     </div>
 
     <ul class="pricing-notes">
-      <li><b>怎麼買</b>：在 LINE 選單點「剩餘點數／儲值」選方案，<b>信用卡一次付清</b>（藍新金流）。</li>
-      <li><b>電子發票</b>：付款後由綠界開立，寄到您填的 Email，可填手機條碼載具。</li>
+      <li><b>怎麼買</b>：在 LINE 選單點「剩餘點數／儲值」選方案，再選付款方式（藍新金流）：<b>信用卡</b>、<b>手機支付</b>（Apple Pay／Google Pay／Samsung Pay）、<b>ATM 轉帳</b>、<b>超商繳費</b>（代碼或條碼）。NT$10 單張不能用超商繳費。</li>
+      <li><b>ATM、超商</b>：拿到繳費帳號或代碼後，<b>3 天內</b>（到期那天晚上 11:59 前）繳費，<b>繳完才會加點</b>。</li>
+      <li><b>電子發票</b>：付款後由綠界開立。Email 可填可不填，填了就寄給您；也可以填手機條碼載具。</li>
       <li><b>不扣點</b>：生圖失敗（不論原因）或被安全過濾擋下，都不扣點。</li>
-      <li><b>扣點順序</b>：先扣免費點數；付費點數先到期的先扣。點數不可轉讓。</li>
+      <li><b>扣點順序</b>：先扣邀請得到的點數，再扣加好友送的 5 點，最後扣付費點數（先到期的先扣）。點數不可轉讓。</li>
       <li><b>邀請朋友送點數</b>：朋友第一次加好友、做出第一張圖，您得 1 點（最多 5 點，90 天內有效、不可退款）。</li>
     </ul>
 
     <div class="refund-box">
       <h3>可以退款</h3>
-      <p>購買 7 天內、那筆點數都沒用過：<b>全額退款</b>。用了一部分：剩下的點數<b>按比例退款</b>（例：NT$90 買 10 點、用了 3 點 → 退 NT$63）。<b>購買後超過 7 天，恕不退款（公司終止服務時除外）</b>。退款退回原付款信用卡；免費點數不能退款。</p>
+      <p><b>用信用卡、手機支付購買</b>：付款後 7 天內、那筆點數都沒用過：<b>全額退款</b>。用了一部分：剩下的點數<b>按比例退款</b>（例：NT$90 買 10 點、用了 3 點 → 退 NT$63）。超過 7 天恕不退款。</p>
+      <p><b>用 ATM 轉帳、超商代碼、超商條碼購買的點數，恕不退款</b>（購買前會請您勾選同意）。需要退款保障，請選信用卡或手機支付。公司終止服務時，不論用哪種方式付款，沒用完的付費點數都全額退款；免費點數、邀請得到的點數不能退款。</p>
       <p><a href="pricing.html#refund">看完整價目與退款政策 →</a></p>
     </div>
   </section>
@@ -677,7 +679,7 @@
       </details>
       <details>
         <summary>怎麼付款？</summary>
-        <div class="ans"><p>在 LINE 聊天室下方選單點「剩餘點數／儲值」，選好方案後用<b>信用卡一次付清</b>，由藍新金流處理付款，我們不會儲存您的卡號。</p><p>付款後由綠界開立電子發票，寄到您購買時填的 Email，也可以填手機條碼載具（不提供捐贈）。</p></div>
+        <div class="ans"><p>在 LINE 聊天室下方選單點「剩餘點數／儲值」，選好方案，再選付款方式：</p><p>・<b>信用卡</b>一次付清，或<b>手機支付</b>（Apple Pay／Google Pay／Samsung Pay）<br>・沒有信用卡？可以用 <b>ATM 轉帳</b>，或到 <b>7-11、全家、萊爾富、OK 超商繳費</b>（超商代碼或條碼；NT$10 單張不能用超商繳費）</p><p>ATM、超商要在拿到繳費資料後 <b>3 天內</b>繳費，繳完點數會自動加上。<b>ATM、超商付款買的點數恕不退款</b>，需要退款保障請選信用卡或手機支付。付款由藍新金流處理，我們不會儲存您的卡號。</p><p>付款後由綠界開立電子發票。Email 可填可不填，填了就寄給您；也可以填手機條碼載具（不提供捐贈）。</p></div>
       </details>
       <details>
         <summary>圖沒做出來，或字不對，會扣點嗎？</summary>
@@ -685,7 +687,7 @@
       </details>
       <details>
         <summary>買了用不完，可以退款嗎？</summary>
-        <div class="ans"><p>購買後 7 天內可以。那筆點數都沒用過，<b>全額退款</b>；有用過但還有剩，剩下的點數<b>按比例退款</b>（例：NT$90 買 10 點、用了 3 點，退 NT$63）。<b>購買後超過 7 天，恕不退款（公司終止服務時除外）</b>。款項退回原付款信用卡。免費贈送的點數不能退款。</p><p>申請方式：LINE 選單「剩餘點數／儲值」→ 退款頁面。<a href="pricing.html#refund">詳細退款政策</a></p></div>
+        <div class="ans"><p>用<b>信用卡或手機支付</b>購買的，付款後 7 天內可以。那筆點數都沒用過，<b>全額退款</b>；有用過但還有剩，剩下的點數<b>按比例退款</b>（例：NT$90 買 10 點、用了 3 點，退 NT$63）。超過 7 天恕不退款（公司終止服務時除外）。款項退回原來付款的信用卡。</p><p><b>用 ATM 轉帳、超商代碼、超商條碼購買的點數，恕不退款。</b>免費送的點數、邀請得到的點數也不能退款。</p><p>申請方式：LINE 選單「剩餘點數／儲值」→ 退款頁面。<a href="pricing.html#refund">詳細退款政策</a></p></div>
       </details>
       <details>
         <summary>點數多久會到期？</summary>
