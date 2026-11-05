@@ -10,7 +10,7 @@ TODAY = datetime.date.today().isoformat()
 # (檔名, title, description, 麵包屑名稱, sitemap priority)
 pages = [
  ("index.html", "早安圖王｜AI 早安圖、長輩圖產生器，LINE 加好友送 5 張",
-  "長輩最愛的早安圖、長輩圖！在 LINE 打上名字，AI 約 40 秒做好；生日、中秋、過年、神明保佑圖都有。加好友免費送 5 張，之後每張 NT$5～10。",
+  "長輩最愛的早安圖、長輩圖！在 LINE 打上名字，AI 約 20 秒做好；生日、中秋、過年、神明保佑圖都有。加好友免費送 5 張，之後每張 NT$5～10。",
   "首頁", "1.0"),
  ("pricing.html", "價目與退款政策｜早安圖王 AI 早安圖・長輩圖",
   "NT$10／1 點、NT$90／10 點、NT$160／20 點、NT$500／100 點（含稅），1 點做 1 張圖，付費點數效期 365 天；可用信用卡、手機支付、ATM、超商付款，信用卡與手機支付 7 日內可退款。",
@@ -66,7 +66,7 @@ def jsonld_for(fn, crumb, body):
             {"@type": "Service", "@id": BASE + "#service", "name": "早安圖王",
              "alternateName": ["早安圖王 AI 祝福圖", "AI 早安圖、長輩圖產生器"],
              "serviceType": "AI 早安圖、長輩圖與祝福圖生成（LINE 官方帳號）",
-             "description": "在 LINE 官方帳號點選單、打上名字或想說的話，AI 約 40 秒做好專屬早安圖、晚安圖、生日、節慶與神佛祝福圖，可直接轉傳親友。加好友免費送 5 點，1 點 = 1 張圖。",
+             "description": "在 LINE 官方帳號點選單、打上名字或想說的話，AI 約 20 秒做好專屬早安圖、晚安圖、生日、節慶與神佛祝福圖，可直接轉傳親友。加好友免費送 5 點，1 點 = 1 張圖。",
              "url": BASE, "image": OG_IMAGE, "provider": {"@id": ORG_ID}, "brand": {"@type": "Brand", "name": "早安圖王"},
              "areaServed": {"@type": "Country", "name": "TW"}, "availableChannel": {"@type": "ServiceChannel", "serviceUrl": LINE_URL},
              "offers": offers()},
