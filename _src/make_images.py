@@ -23,7 +23,7 @@ d.rounded_rectangle([70,70,170,170],radius=14,fill=RED)
 d.text((120,121),"王",font=F(70),fill=(251,239,214),anchor="mm")
 d.text((195,88),"早安圖王",font=F(76),fill=INK)
 d.text((70,205),"在 LINE 打上名字",font=F(44),fill=INK)
-d.text((70,262),"AI 約 40 秒做好專屬祝福圖",font=F(44),fill=RED)
+d.text((70,262),"AI 約 20 秒做好專屬祝福圖",font=F(44),fill=RED)
 d.text((70,340),"早安圖・長輩圖・生日・節慶・神佛祝福",font=F(28),fill=(61,50,40))
 # CTA pill
 d.rounded_rectangle([70,410,520,486],radius=38,fill=(0,132,58))
