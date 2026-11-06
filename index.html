@@ -26,11 +26,11 @@
 <meta name="twitter:image:alt" content="早安圖王：在 LINE 打上名字，AI 做好專屬早安圖、長輩圖、生日與節慶祝福圖">
 <link rel="preload" as="image" href="img/sample-1.webp" type="image/webp" fetchpriority="high">
 <style>
-@font-face{font-family:"Noto Serif TC";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/serif-700.23ed4ac2.woff2) format("woff2")}
-@font-face{font-family:"Noto Serif TC";font-style:normal;font-weight:900;font-display:swap;src:url(fonts/serif-900.eeeb1a4c.woff2) format("woff2")}
-@font-face{font-family:"Noto Sans TC";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/sans-400.ca4dd816.woff2) format("woff2")}
-@font-face{font-family:"Noto Sans TC";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/sans-700.d1d4a4d0.woff2) format("woff2")}
-@font-face{font-family:"Noto Sans TC";font-style:normal;font-weight:900;font-display:swap;src:url(fonts/sans-900.dfc2bd0f.woff2) format("woff2")}
+@font-face{font-family:"Noto Serif TC";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/serif-700.12b28422.woff2) format("woff2")}
+@font-face{font-family:"Noto Serif TC";font-style:normal;font-weight:900;font-display:swap;src:url(fonts/serif-900.0d8398ee.woff2) format("woff2")}
+@font-face{font-family:"Noto Sans TC";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/sans-400.d2067728.woff2) format("woff2")}
+@font-face{font-family:"Noto Sans TC";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/sans-700.907d5e16.woff2) format("woff2")}
+@font-face{font-family:"Noto Sans TC";font-style:normal;font-weight:900;font-display:swap;src:url(fonts/sans-900.9e0a3fc4.woff2) format("woff2")}
 @font-face{font-family:"Ma Shan Zheng";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/brush-400.13be43dc.woff2) format("woff2")}
 </style>
 <link rel="stylesheet" href="style.css">
@@ -263,6 +263,9 @@
     var box = a.closest('section[id], .hero, header, footer, .float-cta');
     var loc = box ? (box.id || (box.classList.contains('hero') ? 'hero' : box.tagName.toLowerCase())) : 'other';
     if (box && box.classList && box.classList.contains('float-cta')) loc = 'float';
+    // 主題頁的 CTA 區塊用 data-ga-loc 指定（＝頁面 slug）
+    var tagged = a.closest('[data-ga-loc]');
+    if (tagged) loc = tagged.getAttribute('data-ga-loc');
     gtag('event', 'add_friend_click', {
       location: loc,
       page: location.pathname,
@@ -275,7 +278,7 @@
 <a class="skip" href="#main">跳到主要內容</a>
 <header class="topbar">
   <div class="topbar-in">
-    <a class="brand" href="index.html">
+    <a class="brand" href="/zaoan/">
       <span class="seal" aria-hidden="true">王</span>
       <span class="brand-text">
         <span class="brand-name">早安圖王</span>
@@ -283,7 +286,7 @@
       </span>
     </a>
     <nav class="nav" aria-label="主選單">
-      <a href="index.html" aria-current="page">首頁</a>
+      <a href="/zaoan/" aria-current="page">首頁</a>
       <a href="pricing.html">價目與退款</a>
       <a href="terms.html">服務條款</a>
       <a href="privacy.html">隱私權政策</a>
@@ -297,8 +300,9 @@
   <!-- ===== Hero ===== -->
   <section class="hero">
     <div class="hero-copy">
-      <span class="eyebrow"><span class="dot" aria-hidden="true"></span>LINE 官方帳號・AI 早安圖／長輩圖</span>
+      <span class="eyebrow"><span class="dot" aria-hidden="true"></span>LINE 官方帳號・不用下載 App</span>
       <h1 class="hero-title">
+        <span class="h1-kw">早安圖王｜AI 早安圖、長輩圖產生器</span>
         每天一張<br>
         <span class="red">最得體</span>的<span class="gold">祝福圖</span><br>
         給心上的人。
@@ -339,8 +343,8 @@
 
   <!-- ===== 數字條 ===== -->
   <div class="proof">
-    <div><div class="num">16<span class="unit">類</span></div><div class="lbl">祝福模板</div></div>
-    <div><div class="num">約 40<span class="unit">秒</span></div><div class="lbl">做好一張圖</div></div>
+    <div><div class="num">22<span class="unit">類</span></div><div class="lbl">祝福模板</div></div>
+    <div><div class="num">約 20<span class="unit">秒</span></div><div class="lbl">做好一張圖</div></div>
     <div><div class="num">NT$5</div><div class="lbl">最低每張價格</div></div>
     <div><div class="num">7<span class="unit">日</span></div><div class="lbl">內沒用過全額退</div></div>
   </div>
@@ -512,6 +516,24 @@
       <div class="tile"><span><span class="emo" aria-hidden="true">🌸</span>母親節</span></div>
       <div class="tile"><span><span class="emo" aria-hidden="true">👔</span>父親節</span></div>
       <div class="tile r"><span><span class="emo" aria-hidden="true">🌕</span>中秋團圓</span></div>
+    </div>
+  </section>
+
+  <!-- ===== 熱門主題（SEO 主題頁入口，build.py 產生） ===== -->
+  <section class="sec" id="topics">
+    <div class="sec-head">
+      <div class="sec-eyebrow">熱門主題</div>
+      <h2 class="sec-title">冬至、聖誕、過年……<br><span class="red">當季祝福圖</span>先看看</h2>
+      <p class="sec-sub">每個主題都有十幾張範例圖和可以直接複製的祝福語，歡迎長按存圖、分享給親友。</p>
+    </div>
+    <div class="rel-grid hot">
+      <a class="rel-card" href="dongzhi/"><img src="dongzhi/img/dongzhi-tangyuan-01.webp" width="800" height="800" loading="lazy" decoding="async" alt="冬至祝福圖範例圖"><span>🥣 冬至祝福圖</span></a>
+      <a class="rel-card" href="generator/"><img src="generator/img/generator-name-01.webp" width="800" height="800" loading="lazy" decoding="async" alt="長輩圖產生器範例圖"><span>✍️ 長輩圖產生器</span></a>
+      <a class="rel-card" href="christmas/"><img src="christmas/img/christmas-tree-01.webp" width="800" height="800" loading="lazy" decoding="async" alt="聖誕節祝福圖片範例圖"><span>🎄 聖誕節祝福圖片</span></a>
+      <a class="rel-card" href="new-year/"><img src="new-year/img/newyear-2027-01.webp" width="800" height="800" loading="lazy" decoding="async" alt="元旦祝福圖範例圖"><span>🎆 元旦祝福圖</span></a>
+      <a class="rel-card" href="cold-weather/"><img src="cold-weather/img/cold-tea-01.webp" width="800" height="800" loading="lazy" decoding="async" alt="天冷早安圖範例圖"><span>🧣 天冷早安圖</span></a>
+      <a class="rel-card" href="deity/"><img src="deity/img/deity-guanyin-01.webp" width="800" height="800" loading="lazy" decoding="async" alt="神明早安圖範例圖"><span>🙏 神明早安圖</span></a>
+      <a class="rel-card" href="chinese-new-year/"><img src="chinese-new-year/img/cny-goat-01.webp" width="800" height="800" loading="lazy" decoding="async" alt="2027 羊年過年祝福圖範例圖"><span>🧧 2027 羊年過年祝福圖</span></a>
     </div>
   </section>
 
@@ -778,8 +800,7 @@
         </div>
         <p>艾鐸有限公司・統一編號 62222415</p>
         <p>客服信箱：<a href="mailto:contact@triplehai.com">contact@triplehai.com</a></p>
-        <p>LINE 官方帳號 ID：<a href="https://line.me/R/ti/p/@581vndzf" rel="noopener">@581vndzf</a></p>
-      </div>
+        <p>LINE 官方帳號 ID：<a href="https://line.me/R/ti/p/@581vndzf" rel="noopener">@581vndzf</a></p>      </div>
       <ul class="foot-links">
         <li><a href="terms.html">服務條款</a></li>
         <li><a href="privacy.html">隱私權政策</a></li>

@@ -3,6 +3,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 from parts import *
 import fonts
+import topic_page
+from topics import TOPICS
 
 OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "")
 TODAY = datetime.date.today().isoformat()
@@ -53,6 +55,16 @@ def offers():
              "availability": "https://schema.org/InStock", "url": BASE + "pricing.html#plans"} for n, p in o]
 
 
+def jsonld_topic(t, body):
+    url = BASE + t["slug"] + "/"
+    return ld([
+        {"@type": "BreadcrumbList", "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "早安圖王", "item": BASE},
+            {"@type": "ListItem", "position": 2, "name": t["crumb"], "item": url}]},
+        {"@type": "FAQPage", "@id": url + "#faq", "mainEntity": faq_items(body)},
+    ])
+
+
 def jsonld_for(fn, crumb, body):
     if fn == "index.html":
         return ld([
@@ -95,7 +107,8 @@ for fn, title, desc, crumb, _ in pages:
     body = open(fn.replace('.html', '_body.html'), encoding='utf8').read()
     body = (body.replace('__LINE_BTN_FINAL__', line_btn('加好友・領 5 張免費', 'xl'))
                 .replace('__LINE_BTN_PLAN__', line_btn('加好友後在 LINE 購買', 'block'))
-                .replace('__LINE_BTN__', line_btn()))
+                .replace('__LINE_BTN__', line_btn())
+                .replace('__HOT_TOPICS__', topic_page.hot_topics()))
     if not is_index:
         body = body.replace('<main id="main">', '<main id="main" class="subpage">', 1)
     else:
@@ -109,6 +122,16 @@ for fn, title, desc, crumb, _ in pages:
             + header(fn) + body + footer(float_cta=is_index))
     built[fn] = html
 
+# 主題頁（/zaoan/<slug>/index.html）
+for t in TOPICS:
+    fn = t["slug"] + "/index.html"
+    body = topic_page.render(t)
+    built[fn] = (head(t["title"], t["desc"], t["slug"] + "/", "has-float", jsonld_topic(t, body), "", root="../")
+                 + header(fn, root="../") + body + footer(float_cta=True, root="../"))
+    pages.append((fn, t["title"], t["desc"], t["crumb"], "0.8"))
+
+titles = [p[1] for p in pages]
+assert len(titles) == len(set(titles)), "title 重複"
 font_css = fonts.build(built.values())
 
 
@@ -121,17 +144,24 @@ old_sm = open(OUT + "sitemap.xml", encoding="utf8").read() if os.path.exists(OUT
 old_dates = dict(re.findall(r"<loc>([^<]+)</loc><lastmod>([^<]+)</lastmod>", old_sm))
 urls = []
 for fn, title, desc, crumb, prio in pages:
-    html = built[fn].replace("__FONT_FACE__", font_css)
-    loc = BASE + ("" if fn == "index.html" else fn)
+    root = "../" * fn.count("/")
+    html = built[fn].replace("__FONT_FACE__", font_css.replace("url(fonts/", f"url({root}fonts/"))
+    loc = BASE + ("" if fn == "index.html" else fn.replace("index.html", ""))
     old = open(OUT + fn, encoding="utf8").read() if os.path.exists(OUT + fn) else ""
     head_old, head_new = old.split("<body", 1)[0], html.split("<body", 1)[0]
     strip = lambda h: re.sub(r"<style>[\s\S]*?</style>", "", h)
     changed = content_part(old) != content_part(html) or strip(head_old) != strip(head_new)
     lastmod = TODAY if changed or loc not in old_dates else old_dates[loc]
-    urls.append(f"  <url><loc>{loc}</loc><lastmod>{lastmod}</lastmod><priority>{prio}</priority></url>")
+    imgs = ""
+    if fn.endswith("/index.html"):
+        t = next(x for x in TOPICS if x["slug"] + "/index.html" == fn)
+        imgs = "".join(f"<image:image><image:loc>{u}</image:loc></image:image>" for u in topic_page.image_urls(t, BASE))
+    urls.append(f"  <url><loc>{loc}</loc><lastmod>{lastmod}</lastmod><priority>{prio}</priority>{imgs}</url>")
+    os.makedirs(os.path.dirname(OUT + fn), exist_ok=True)
     open(OUT + fn, 'w', encoding='utf8', newline='\n').write(html)
 
 open(OUT + "sitemap.xml", "w", encoding="utf8", newline="\n").write(
-    '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'
+    ' xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n'
     + "\n".join(urls) + "\n</urlset>\n")
 print('ok')

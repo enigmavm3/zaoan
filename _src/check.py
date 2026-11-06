@@ -1,11 +1,16 @@
-import sys, json, subprocess, time, os, urllib.request
+import sys, json, subprocess, time, os, urllib.request, urllib.parse, glob
 from playwright.sync_api import sync_playwright
 
 ROOT = sys.argv[1] if len(sys.argv) > 1 else os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SHOTS = sys.argv[2] if len(sys.argv) > 2 else os.path.join(os.environ.get("TEMP", "."), "zaoan_shots")
-PAGES = sys.argv[3].split(",") if len(sys.argv) > 3 else ["index.html", "pricing.html", "terms.html", "privacy.html"]
+# 預設：根目錄 4 頁 + 所有主題頁（<slug>/index.html）
+PAGES = sys.argv[3].split(",") if len(sys.argv) > 3 else (
+    ["index.html", "pricing.html", "terms.html", "privacy.html"]
+    + sorted(os.path.relpath(p, ROOT).replace(os.sep, "/") for p in glob.glob(os.path.join(ROOT, "*", "index.html"))))
+# 伺服器開在 repo 的上一層，網址是 /zaoan/...（和線上 triplehai.com/zaoan/ 一樣，絕對路徑 /zaoan/ 才連得到）
+SITE = "/" + os.path.basename(os.path.normpath(ROOT)) + "/"
 PORT = int(os.environ.get("PORT", "8765"))
-srv = subprocess.Popen([sys.executable, "-m", "http.server", str(PORT), "-d", ROOT],
+srv = subprocess.Popen([sys.executable, "-m", "http.server", str(PORT), "-d", os.path.dirname(os.path.normpath(ROOT))],
                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 time.sleep(1.2)
 os.makedirs(SHOTS, exist_ok=True)
@@ -41,6 +46,11 @@ JS = r"""
   document.querySelectorAll('[id]').forEach(e => res.ids.push(e.id));
   res.tableScroll = [...document.querySelectorAll('.table-wrap')].filter(t=>t.scrollWidth>t.clientWidth+1).length;
   res.imgsBroken = [...document.images].filter(i => i.complete && i.naturalWidth === 0).map(i => i.src);
+  res.h1 = document.querySelectorAll('h1').length;
+  res.title = document.title;
+  res.ld = [...document.querySelectorAll('script[type="application/ld+json"]')].map(s => s.textContent);
+  res.imgNoAlt = [...document.images].filter(i => !i.getAttribute('alt')).map(i => i.src);
+  res.imgNoSize = [...document.images].filter(i => !i.getAttribute('width') || !i.getAttribute('height')).map(i => i.src);
   return res;
 }
 """
@@ -54,12 +64,12 @@ with sync_playwright() as p:
         for pg in PAGES:
             page = ctx.new_page()
             page.on("response", lambda r: bad_resp.append((r.status, r.url)) if r.status >= 400 else None)
-            page.goto(f"http://localhost:{PORT}/{pg}", wait_until="networkidle")
+            page.goto(f"http://localhost:{PORT}{SITE}{pg}", wait_until="networkidle")
             page.evaluate("document.querySelectorAll('img[loading=lazy]').forEach(i=>i.loading='eager')")
             page.wait_for_timeout(1500)
             r = page.evaluate(JS)
             report[f"{name}:{pg}"] = r
-            out = os.path.join(SHOTS, f"{pg.replace('.html','')}-{name}.png")
+            out = os.path.join(SHOTS, f"{pg.replace('/index.html','').replace('.html','')}-{name}.png")
             H = page.evaluate("document.documentElement.scrollHeight"); W = vp["width"]
             dpr = 1 if name == "desktop" else 2
             from PIL import Image
@@ -73,24 +83,46 @@ with sync_playwright() as p:
         ctx.close()
     b.close()
 
-# link check
-ids = {k.split(":")[1]: set(v["ids"]) for k, v in report.items()}
+# link check：以頁面網址為基準解析相對連結，/zaoan/... 對應到 ROOT
+ids = {k.split(":", 1)[1]: set(v["ids"]) for k, v in report.items()}
 link_problems = set()
 for k, v in report.items():
-    pg = k.split(":")[1]
+    pg = k.split(":", 1)[1]
     for h in v["links"]:
         if h.startswith(("http", "mailto:")):
             if "line.me" in h and h != "https://line.me/R/ti/p/@581vndzf": link_problems.add((pg, h))
             continue
         if h == "#" or h == "": link_problems.add((pg, "EMPTY " + h)); continue
-        file, _, frag = h.partition("#")
-        file = file or pg
-        if not os.path.exists(os.path.join(ROOT, file)): link_problems.add((pg, "MISSING " + h)); continue
-        if frag and file in ids and frag not in ids[file]: link_problems.add((pg, "BADFRAG " + h))
+        url = urllib.parse.urljoin(SITE + pg, h)
+        path, _, frag = url.partition("#")
+        if not path.startswith(SITE): link_problems.add((pg, "OUTSIDE " + h)); continue
+        rel = urllib.parse.unquote(path[len(SITE):])
+        if rel == "" or rel.endswith("/"): rel += "index.html"
+        if not os.path.exists(os.path.join(ROOT, rel)): link_problems.add((pg, "MISSING " + h)); continue
+        if frag and rel in ids and frag not in ids[rel]: link_problems.add((pg, "BADFRAG " + h))
 srv.terminate()
 for k, v in report.items():
     print(f"== {k}: scrollW={v['scrollW']} vw={v['vw']} small={len(v['small'])} overflow={len(v['overflow'])} broken_img={v['imgsBroken']} tableScroll={v['tableScroll']}")
     for s in v["small"][:15]: print("   small:", s)
     for s in v["overflow"][:15]: print("   overflow:", s)
 print("HTTP>=400:", sorted(set(bad_resp)))
+# H1、title、JSON-LD、圖片 alt/size（只看手機版即可）
+titles = {}
+for k, v in report.items():
+    if not k.startswith("mobile:"): continue
+    pg = k.split(":", 1)[1]
+    titles.setdefault(v["title"], []).append(pg)
+    if v["h1"] != 1: print("H1 count", pg, v["h1"])
+    for t in v["ld"]:
+        try:
+            d = json.loads(t)
+            types = [g.get("@type") for g in d.get("@graph", [d])]
+            for g in d.get("@graph", [d]):
+                if g.get("@type") == "FAQPage" and not g.get("mainEntity"): print("EMPTY FAQ", pg)
+        except Exception as e:
+            print("BAD JSON-LD", pg, e)
+    if v["imgNoAlt"]: print("img no alt", pg, v["imgNoAlt"][:3])
+    if v["imgNoSize"]: print("img no size", pg, v["imgNoSize"][:3])
+dup = {t: p for t, p in titles.items() if len(p) > 1}
+print("duplicate titles:", dup or "none")
 print("link problems:", sorted(link_problems))
