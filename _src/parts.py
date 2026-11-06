@@ -116,9 +116,7 @@ def footer(float_cta=False, root=""):
         </div>
         <p>艾鐸有限公司・統一編號 62222415</p>
         <p>客服信箱：<a href="mailto:contact@triplehai.com">contact@triplehai.com</a></p>
-        <p>LINE 官方帳號 ID：<a href="{LINE_URL}" rel="noopener">@581vndzf</a></p>
-        <p>艾鐸其他服務：<a href="https://triplehai.com/translator/">翻譯小幫手（LINE 群組即時翻譯）</a>・<a href="https://triplehai.com/site/">艾鐸有限公司官網</a></p>
-      </div>
+        <p>LINE 官方帳號 ID：<a href="{LINE_URL}" rel="noopener">@581vndzf</a></p>      </div>
       <ul class="foot-links">
         <li><a href="{root}terms.html">服務條款</a></li>
         <li><a href="{root}privacy.html">隱私權政策</a></li>

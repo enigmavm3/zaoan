@@ -17,7 +17,6 @@
       退回原因：「姊」畫成異體字「姉」×2（改用「姐」）、金鎖／項圈／吊飾上的亂碼小字×3、背景模糊亂碼福字×2
 - [x] 首頁：H1 加關鍵字「早安圖王｜AI 早安圖、長輩圖產生器」、「熱門主題」區塊連 7 頁、連到 `index.html` 改 `/zaoan/`
 - [x] sitemap.xml 加 7 頁＋image:image（104 張）；llms.txt 節慶清單補齊、列出主題頁
-- [x] 所有頁頁尾加「艾鐸其他服務：翻譯小幫手（LINE 群組即時翻譯）・艾鐸有限公司官網」（/translator/、/site/ 皆確認 200）
 - [x] build、check 通過（375／1366 無溢出、無壞連結、字級 ≥16px、每頁 1 個 H1、JSON-LD 可解析、title 不重複）
 - [x] commit 在 `seo-batch1`（未 push；用戶 review 後合併 main 才會上線）
 - [ ] 上線後：GSC 提交 sitemap、7 頁逐頁要求建立索引
