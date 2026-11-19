@@ -1,10 +1,26 @@
-"""把 topics.py 的資料組成主題頁 <main> 內容（SEO 第一批）。"""
+"""把 topics.py 的資料組成主題頁 <main> 內容（SEO 第一批、第二批）。"""
 import html as h
+import os
 
 from parts import HOME, line_btn
 from topics import LINE_CTA, TOPIC_BY_SLUG, TOPICS, iter_images
 
 R = "../"  # 主題頁在 /zaoan/<slug>/，回網站根目錄
+SITE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+def has_img(topic, f):
+    """範例圖檔存在才放上頁面（還沒生圖的頁面先上文字，避免破圖）。"""
+    return os.path.exists(os.path.join(SITE_DIR, topic["slug"], "img", f + ".webp"))
+
+
+def images_of(topic):
+    """iter_images 但只留已經有圖檔的。"""
+    return [x for x in iter_images(topic) if has_img(topic, x[1])]
+
+
+def missing_images(topic):
+    return [x[1] for x in iter_images(topic) if not has_img(topic, x[1])]
 
 
 def esc(s):
@@ -16,8 +32,12 @@ def alt_of(topic, desc, text):
 
 
 def first_image(topic):
-    sec, f, t, s, d, k = next(iter_images(topic))
-    return f, t, d
+    """(圖檔所在 slug, 檔名, 圖上文字, 描述)；這頁還沒有圖時借上層頁（parent）的第一張。"""
+    imgs = images_of(topic)
+    if not imgs and topic.get("parent"):
+        return first_image(TOPIC_BY_SLUG[topic["parent"]])
+    sec, f, t, s, d, k = (imgs or list(iter_images(topic)))[0]
+    return topic["slug"], f, t, d
 
 
 def pic(topic, f, t, d, eager=False):
@@ -60,8 +80,8 @@ def faq(topic):
 
 
 def rel_card(t, prefix):
-    f, txt, d = first_image(t)
-    return (f'<a class="rel-card" href="{prefix}{t["slug"]}/"><img src="{prefix}{t["slug"]}/img/{f}.webp" width="800" height="800" '
+    src_slug, f, txt, d = first_image(t)
+    return (f'<a class="rel-card" href="{prefix}{t["slug"]}/"><img src="{prefix}{src_slug}/img/{f}.webp" width="800" height="800" '
             f'loading="lazy" decoding="async" alt="{esc(t["short"])}範例圖"><span>{t["emoji"]} {esc(t["short"])}</span></a>')
 
 
@@ -133,9 +153,30 @@ def extra_generator():
 '''
 
 
+def info(topic):
+    """純文字段落（習俗、日期說明）：body 裡字串→<p>，("ul", [...])→清單。"""
+    out = []
+    for b in topic.get("info", []):
+        parts = []
+        for x in b["body"]:
+            if isinstance(x, tuple):
+                parts.append('    <ul class="info-list">\n' + "\n".join(f"      <li>{li}</li>" for li in x[1]) + "\n    </ul>")
+            else:
+                parts.append(f"    <p>{x}</p>")
+        out.append(f'  <section id="{b["id"]}">\n    <h2>{esc(b["h2"])}</h2>\n' + "\n".join(parts) + "\n  </section>\n")
+    return "".join(out)
+
+
+def children(slug):
+    return [t for t in TOPICS if t.get("parent") == slug]
+
+
 def extra_cny(topic):
-    rows = "\n".join(f'          <tr><th>{a}</th><td data-label="日期">{b}</td><td data-label="習俗">{c}</td></tr>'
-                     for a, b, c in topic["schedule"])
+    def day(a, link):
+        return f'<a href="{R}{link}/">{a}</a>' if link else a
+    rows = "\n".join(f'          <tr><th>{day(a, rest[0] if rest else None)}</th><td data-label="日期">{b}</td><td data-label="習俗">{c}</td></tr>'
+                     for a, b, c, *rest in topic["schedule"])
+    subs = "".join(f'<li><a href="{R}{t["slug"]}/">{t["emoji"]} {esc(t["short"])}</a></li>' for t in children(topic["slug"]))
     return f'''  <section id="dates">
     <h2>2027 過年日期一覽</h2>
     <div class="table-wrap dates">
@@ -146,33 +187,43 @@ def extra_cny(topic):
         </tbody>
       </table>
     </div>
-    <p>初五迎財神，也可以傳一張<a href="{R}deity/#caishen">財神早安圖</a>。實際放假日以行政院人事行政總處公告為準。</p>
+    <p>初五迎財神可以傳<a href="{R}caishen/">初五迎財神圖片</a>，或<a href="{R}deity/#caishen">財神早安圖</a>。實際放假日以行政院人事行政總處公告為準。</p>
+  </section>
+
+  <section id="days">
+    <h2>過年每一天的祝福圖</h2>
+    <p>除夕、初一、初五、開工，每一天都有專屬的祝福圖和祝福語：</p>
+    <ul class="topic-jump">{subs}</ul>
   </section>
 '''
 
 
 def render(topic):
     secs = topic["sections"]
-    jump = "".join(f'<li><a href="#{s["id"]}">{esc(s["h2"])}</a></li>' for s in secs)
+    jump = "".join(f'<li><a href="#{s["id"]}">{esc(s["h2"])}</a></li>' for s in topic.get("info", []) + secs)
+    par = TOPIC_BY_SLUG.get(topic.get("parent"))
+    mid = (f'<a href="{R}{par["slug"]}/">{esc(par["crumb"])}</a><span aria-hidden="true">›</span>' if par else "")
+    back = (f'\n  <p class="back-hub">← 回到<a href="{R}{par["slug"]}/">{esc(par["short"])}</a>（過年每一天的祝福圖、日期一覽）</p>' if par else "")
     lead = "\n  ".join(f"<p>{p}</p>" for p in topic["lead"])
     out = [f'''<main id="main" class="subpage topic">
 <div class="wrap">
-  <nav class="crumbs" aria-label="麵包屑"><a href="{HOME}">早安圖王</a><span aria-hidden="true">›</span><span aria-current="page">{esc(topic["crumb"])}</span></nav>
+  <nav class="crumbs" aria-label="麵包屑"><a href="{HOME}">早安圖王</a><span aria-hidden="true">›</span>{mid}<span aria-current="page">{esc(topic["crumb"])}</span></nav>
 </div>
 <div class="wrap page-head">
   <h1>{esc(topic["h1"])}</h1>
   {lead}
-  <ul class="topic-jump">{jump}</ul>
+  <ul class="topic-jump">{jump}</ul>{back}
 </div>
 
 <div class="wrap doc wide">
 ''']
     if topic["slug"] == "chinese-new-year":
         out.append(extra_cny(topic))
+    out.append(info(topic))
     first = True
     for i, s in enumerate(secs):
         pics = "\n      ".join(pic(topic, f, t, d, eager=(first and j == 0))
-                               for j, (f, t, _, d, *_) in enumerate(s["images"]))
+                               for j, (f, t, _, d, *_) in enumerate(x for x in s["images"] if has_img(topic, x[0])))
         first = False
         out.append(f'''  <section id="{s["id"]}">
     <h2>{esc(s["h2"])}</h2>
@@ -219,8 +270,8 @@ document.addEventListener('click', function (e) {
 
 
 def hot_topics():
-    """首頁「熱門主題」區塊。"""
-    cards = "\n      ".join(rel_card(t, "") for t in TOPICS)
+    """首頁「熱門主題」區塊：只放主頁；過年子頁（有 parent）由過年頁連出，不上首頁。"""
+    cards = "\n      ".join(rel_card(t, "") for t in TOPICS if not t.get("parent"))
     return f'''  <section class="sec" id="topics">
     <div class="sec-head">
       <div class="sec-eyebrow">熱門主題</div>
@@ -235,4 +286,4 @@ def hot_topics():
 
 
 def image_urls(topic, base):
-    return [f"{base}{topic['slug']}/img/{f}.webp" for _, f, *_ in iter_images(topic)]
+    return [f"{base}{topic['slug']}/img/{f}.webp" for _, f, *_ in images_of(topic)]
