@@ -1,9 +1,11 @@
-"""SEO 主題頁內容（第一批 7 頁，依 SEO_RESEARCH.md 第 4 節）。
+"""SEO 主題頁內容（第一批 7 頁＋第二批 4 頁，依 SEO_RESEARCH.md 第 4 節）。
 
 每張範例圖：(檔名, 圖上文字, 英文場景描述（生圖用）, 中文畫面描述（alt 用）)
 - 圖上文字空白 = 換行（生圖時分兩行）
 - 圖檔在 <slug>/img/<檔名>.webp，由早安圖王同款 AI（gpt-image-2 low）產生，人工逐張檢查錯字
 - 每年更新：title／description／lead 的年份與日期（網址不帶年份）
+- parent：子頁（過年各天）的上層頁 slug → 麵包屑三層、上層頁「過年每一天的祝福圖」自動列出
+- info：純文字段落（習俗、日期說明），放在第一個圖區之前
 """
 
 # 頁面共用的生圖風格（kind）
@@ -41,6 +43,10 @@ KINDS = {
         base="Create a festive Chinese New Year greeting image for Taiwanese elders, for the 2027 Year of the Goat (Sheep).",
         tstyle="gold text with red outline, bold and celebratory",
         tail="Mood: joyful, prosperous, festive, auspicious. Style: rich and luxurious photorealistic. NO Western elements."),
+    "kaigong": dict(
+        base="Create a bright and auspicious Taiwanese greeting image for the first workday after Chinese New Year (kaigong, the start of work), for the 2027 Year of the Goat.",
+        tstyle="gold text with red outline, bold and celebratory",
+        tail="Mood: prosperous, energetic, fresh start, auspicious. Style: rich photorealistic with warm festive light. NO Western elements."),
     "generic": dict(
         base="Create a warm Chinese-style greeting image for Taiwanese elders.",
         tstyle="elegant brush calligraphy or modern rounded font, gold or warm red",
@@ -369,7 +375,7 @@ dict(
    wishes=["早安！土地公保佑，生意興隆、福氣滿門。",
            "福德正神護佑，祝您平安發財、事事如意。",
            "早安，祝您福氣滿滿、闔家安康。"]),
-  dict(id="caishen", h2="財神早安圖", intro="財神爺招財進寶，初五迎財神也很適合傳。",
+  dict(id="caishen", h2="財神早安圖", intro="財神爺招財進寶，初五迎財神也很適合傳。初五專用的圖和迎財神習俗，請看<a href=\"../caishen/\">初五迎財神圖片</a>。",
    images=[
     ("deity-caishen-01", "早安 財源廣進", "Caishen the God of Wealth in an ornate red and gold embroidered imperial robe, holding a treasure bowl overflowing with gold ingots and coins, gold coins falling around, auspicious clouds", "手捧聚寶盆的財神爺"),
     ("deity-caishen-02", "招財進寶", "Caishen the God of Wealth smiling, red and gold robe, holding a gold ingot, surrounded by red lanterns and plum blossoms", "紅燈籠與梅花旁的財神爺"),
@@ -422,7 +428,7 @@ dict(
    wishes=["新年快樂！羊年行大運，祝您身體健康、萬事如意。",
            "三羊開泰、喜氣洋洋，祝您全家平安、福氣滿滿。",
            "恭賀新禧，祝您新的一年吉祥如意、心想事成。"]),
-  dict(id="eve", h2="除夕圍爐圖", intro="除夕（2 月 5 日）晚上圍爐，祝福全家團圓、年年有餘。",
+  dict(id="eve", h2="除夕圍爐圖", intro="除夕（2 月 5 日）晚上圍爐，祝福全家團圓、年年有餘。更多請看<a href=\"../cny-eve/\">除夕早安圖</a>。",
    images=[
     ("cny-eve-01", "除夕快樂 闔家團圓", "a round table full of Chinese New Year dishes with a hot pot in the center, red lanterns, no people", "擺滿年菜與火鍋的圓桌"),
     ("cny-eve-02", "圍爐團圓", "a steaming hot pot surrounded by plates of food on a red tablecloth, warm festive light", "熱騰騰的圍爐火鍋"),
@@ -432,7 +438,7 @@ dict(
    wishes=["除夕快樂！闔家團圓，祝您年年有餘。",
            "圍爐吃飽飽，祝您全家平安、身體健康。",
            "除夕夜，祝您守歲平安，明年更好。"]),
-  dict(id="day1", h2="初一早安圖", intro="大年初一（2 月 6 日）早上，傳一張新春早安圖拜年。",
+  dict(id="day1", h2="初一早安圖", intro="大年初一（2 月 6 日）早上，傳一張新春早安圖拜年。更多請看<a href=\"../cny-day1/\">初一早安圖</a>。",
    images=[
     ("cny-day1-01", "新春早安", "blooming plum blossoms and red peonies in golden morning sunlight, red lanterns", "晨光中的梅花牡丹與燈籠"),
     ("cny-day1-02", "初一早安 萬事如意", "a red lantern and plum blossom branch against a golden sunrise sky", "日出天空下的紅燈籠與梅枝"),
@@ -453,11 +459,12 @@ dict(
  ],
  schedule=[
   ("小年夜", "2 月 4 日（四）", "大掃除、準備年菜"),
-  ("除夕", "2 月 5 日（五）", "圍爐、守歲、發紅包"),
-  ("大年初一", "2 月 6 日（六）", "拜年、走春"),
+  ("除夕", "2 月 5 日（五）", "圍爐、守歲、發紅包", "cny-eve"),
+  ("大年初一", "2 月 6 日（六）", "拜年、走春", "cny-day1"),
   ("初二", "2 月 7 日（日）", "回娘家"),
   ("初四", "2 月 9 日（二）", "接神"),
-  ("初五", "2 月 10 日（三）", "迎財神、開市"),
+  ("初五", "2 月 10 日（三）", "迎財神、開市", "caishen"),
+  ("初六", "2 月 11 日（四）", "連假後第一個上班日，多數公司行號開工", "kaigong"),
  ],
  faq=[
   ("2027 年過年是哪幾天？",
@@ -470,6 +477,302 @@ dict(
    ["可以。這頁的圖都是早安圖王用 AI 做的，歡迎長按圖片存到手機，再傳給親友拜年。"]),
  ],
  related=["new-year", "deity", "dongzhi", "generator"],
+),
+
+# ═════════════════════════ 第二批：過年子頁（parent＝chinese-new-year） ═════════════════════════
+# 日期以 lunardate 計算：除夕 2027-02-05（五，臘月廿九）、初一 02-06（六）、初五 02-10（三）、初六 02-11（四）
+# 春節連假 2/4–2/10（7 天），連假後第一個上班日 2/11。
+
+# ───────────────────────────── 8. 除夕早安圖 ─────────────────────────────
+dict(
+ slug="cny-eve", parent="chinese-new-year", kind="cny", crumb="除夕早安圖", short="除夕早安圖", emoji="🏮",
+ title="2027 除夕早安圖｜除夕祝福圖、圍爐團圓圖片與祝福語｜早安圖王",
+ desc="2027 除夕是 2 月 5 日（星期五），農曆臘月廿九。14 張除夕早安圖、除夕祝福圖、圍爐團圓圖片與除夕長輩圖，繁體中文、可長按存圖轉傳，附可複製的除夕祝福語。加 LINE 好友免費做 5 張打上名字的。",
+ h1="除夕早安圖",
+ lead=["2027 年除夕是 <b>2 月 5 日（星期五）</b>。這一年農曆十二月只有 29 天，所以除夕是<b>臘月廿九</b>，不是「年三十」。",
+       "這頁有 14 張除夕早安圖、圍爐團圓圖和除夕夜祝福圖，都附上可以直接複製的祝福語。歡迎長按存圖，除夕一早或圍爐前傳給親友。"],
+ info=[
+  dict(id="custom", h2="除夕這一天怎麼過", body=[
+   ("ul", ["<b>早上</b>：傳一張除夕早安圖問候親友；很多家庭會拜神明、祭拜祖先。",
+           "<b>白天</b>：準備年菜、打掃家裡，各家時間不太一樣。",
+           "<b>晚上</b>：全家圍爐吃年夜飯，長輩發壓歲錢（紅包）。",
+           "<b>深夜</b>：守歲，一起迎接大年初一。"]),
+   "大年初一早上的拜年圖，請看<a href=\"../cny-day1/\">初一早安圖</a>；過年每一天的日期，整理在<a href=\"../chinese-new-year/#dates\">2027 過年日期一覽</a>。",
+  ]),
+ ],
+ sections=[
+  dict(id="morning", h2="除夕早安圖", intro="除夕一早傳一張，提醒親友今天要回家團圓。",
+   images=[
+    ("cnyeve-morning-01", "除夕早安", "red lanterns hanging under the eaves of a traditional Taiwanese house in golden morning sunlight, red plum blossoms", "晨光中屋簷下的紅燈籠"),
+    ("cnyeve-morning-02", "除夕早安 平安喜樂", "blooming red plum blossom branches against a clear morning sky, gold sparkles, festive red tones", "晨光裡盛開的紅梅"),
+    ("cnyeve-morning-03", "除夕快樂", "a cute small golden sheep figurine beside red lanterns and mandarin oranges, soft morning light, red and gold", "金色小羊、紅燈籠與橘子"),
+    ("cnyeve-morning-04", "早安 回家過年", "a traditional Taiwanese red-brick courtyard house (sanheyuan) decorated with red lanterns at sunrise, welcoming atmosphere, no people", "日出時掛滿紅燈籠的三合院"),
+    ("cnyeve-morning-05", "除夕早安 萬事如意", "red peonies and gold ingots on a red silk table, soft golden morning light", "紅牡丹與金元寶"),
+   ],
+   wishes=["除夕早安！今天回家團圓，祝您一路平安。",
+           "除夕快樂，祝您平安喜樂、萬事如意。",
+           "早安！一年的最後一天，謝謝您這一年的照顧。"]),
+  dict(id="reunion", h2="圍爐團圓圖", intro="年夜飯、火鍋、整條魚，祝福全家團圓、年年有餘。",
+   images=[
+    ("cnyeve-reunion-01", "闔家團圓", "a round dining table full of Taiwanese New Year's Eve dishes with a steaming hot pot in the center, warm lamp light, red lanterns, no people", "擺滿年菜與火鍋的圓桌"),
+    ("cnyeve-reunion-02", "圍爐吃飽飽", "a steaming hot pot with fresh vegetables, meat slices and fish balls on a red tablecloth, warm festive light", "熱騰騰的圍爐火鍋"),
+    ("cnyeve-reunion-03", "年年有餘", "a whole steamed fish with ginger and scallions on a festive plate, red decorations, warm light", "一整條蒸魚象徵年年有餘"),
+    ("cnyeve-reunion-04", "團圓飯 好滋味", "festive Taiwanese New Year dishes: braised pork, long-life mustard greens, white-cut chicken, on a red table, warm light", "滷肉、長年菜與白斬雞"),
+   ],
+   wishes=["除夕快樂！闔家團圓，祝您年年有餘。",
+           "圍爐吃飽飽，祝您全家平安、身體健康。",
+           "團圓飯吃得香，祝您明年更旺。"]),
+  dict(id="night", h2="除夕夜祝福圖", intro="發紅包、守歲的晚上，傳一張祝對方新年好運。",
+   images=[
+    ("cnyeve-night-01", "守歲平安", "red lanterns glowing at night over a quiet Taiwanese courtyard, warm lit windows, starry sky", "夜裡紅燈籠高掛的院子"),
+    ("cnyeve-night-02", "壓歲錢 好運到", "plain red envelopes and shiny gold coins on a red silk cloth, warm golden glow", "紅包與金幣"),
+    ("cnyeve-night-03", "除夕快樂 明年更好", "colorful fireworks over a small Taiwanese town at night, red lanterns in the foreground", "小鎮夜空的煙火與紅燈籠"),
+   ],
+   wishes=["除夕夜，祝您守歲平安，明年更好。",
+           "壓歲錢收好好，祝您新的一年好運連連。",
+           "今晚圍爐守歲，祝您全家幸福美滿。"]),
+  dict(id="name", h2="打上名字的除夕圖", intro="給阿公阿嬤、爸媽，打上稱呼更貼心。",
+   images=[
+    ("cnyeve-name-01", "外婆 除夕快樂", "a round table of New Year dishes with a hot pot, red lanterns, warm glow, no people", "年菜火鍋與紅燈籠"),
+    ("cnyeve-name-02", "爸媽 闔家團圓", "red lanterns, plum blossoms and a small golden sheep ornament, warm festive glow", "紅燈籠、梅花與金色小羊"),
+   ],
+   wishes=["外婆，除夕快樂！今晚一起圍爐，祝您身體健康。",
+           "爸、媽，除夕快樂，我們回家吃團圓飯！"]),
+ ],
+ faq=[
+  ("2027 年除夕是哪一天？為什麼不是年三十？",
+   ["2027 年除夕是 <b>2 月 5 日（星期五）</b>。除夕是農曆一年的最後一天；這一年的農曆十二月只有 29 天，所以除夕是臘月廿九。前一天 2 月 4 日（星期四）是小年夜。實際放假日以行政院人事行政總處公告為準。"]),
+  ("除夕祝福圖什麼時候傳比較好？",
+   ["早上傳除夕早安圖，提醒親友回家團圓；圍爐前後傳團圓圖；晚上守歲時再傳一句新年祝福。大年初一早上，可以改傳<a href=\"../cny-day1/\">初一早安圖</a>拜年。"]),
+  ("除夕祝福語怎麼寫？",
+   ["講團圓、平安、年年有餘最得體，例如「除夕快樂！闔家團圓，祝您年年有餘。」給長輩可以加一句「祝您身體健康」。"]),
+  ("這些除夕圖可以免費存下來嗎？",
+   ["可以。這頁的圖都是早安圖王用 AI 做的，歡迎長按圖片存到手機，再傳給親友。"]),
+  ("怎麼做一張打上名字的除夕圖？",
+   ["加 LINE 好友「早安圖王」，過年前約兩週起，選單「節慶圖」裡就有「過年大吉」；也可以點「自己打字」，輸入「阿嬤除夕快樂」。加好友先送 5 張免費。"]),
+ ],
+ related=["chinese-new-year", "cny-day1", "caishen", "generator"],
+),
+
+# ───────────────────────────── 9. 初一早安圖 ─────────────────────────────
+dict(
+ slug="cny-day1", parent="chinese-new-year", kind="cny", crumb="初一早安圖", short="初一早安圖", emoji="🐑",
+ title="2027 初一早安圖｜大年初一新春早安圖、拜年長輩圖與吉祥話｜早安圖王",
+ desc="2027 大年初一是 2 月 6 日（星期六），羊年第一天。14 張初一早安圖、新春拜年圖、羊年吉祥話圖與拜年長輩圖，繁體中文、可長按存圖轉傳，附可複製的拜年吉祥話。加 LINE 好友免費做 5 張打上名字的。",
+ h1="初一早安圖",
+ lead=["2027 年大年初一是 <b>2 月 6 日（星期六）</b>，也是羊年（丁未年）的第一天。",
+       "這頁有 14 張初一早安圖、羊年吉祥話圖和拜年長輩圖，都附上可以直接複製的吉祥話。歡迎長按存圖，初一一早傳給親友拜年。"],
+ info=[
+  dict(id="custom", h2="大年初一的習俗", body=[
+   ("ul", ["<b>拜年</b>：向長輩、親友說「新年快樂」「恭喜發財」，傳一張初一早安圖也是拜年。",
+           "<b>走春</b>：到廟裡拜拜、出門踏青，討個好彩頭。",
+           "<b>穿新衣、講好話</b>：新年第一天，大家都說吉祥話。",
+           "有些家庭初一早上吃素，也有「初一不掃地」（怕把福氣掃出去）的說法，各家習慣不同。"]),
+   "初二回娘家、初五迎財神，可以看<a href=\"../caishen/\">初五迎財神圖片</a>；除夕的圖請看<a href=\"../cny-eve/\">除夕早安圖</a>。",
+  ]),
+ ],
+ sections=[
+  dict(id="morning", h2="初一新春早安圖", intro="新年第一天的早安圖，晨光、梅花、紅燈籠，喜氣又清爽。",
+   images=[
+    ("cnyday1-morning-01", "新春早安", "a golden first-morning sunrise over Taiwanese mountains with red plum blossoms in the foreground", "山間日出與紅梅"),
+    ("cnyday1-morning-02", "初一早安 新年快樂", "red lanterns and blooming pink peach blossoms in bright morning sunlight, festive red and gold", "晨光中的紅燈籠與桃花"),
+    ("cnyday1-morning-03", "大年初一 大吉大利", "a tray of mandarin oranges with green leaves and gold ingots on red silk in morning sunlight", "一盤橘子與金元寶"),
+    ("cnyday1-morning-04", "新年早安 身體健康", "a pot of blooming phalaenopsis orchids and a cup of hot tea by a sunny window, red lanterns outside", "窗邊的蝴蝶蘭與熱茶"),
+    ("cnyday1-morning-05", "初一早安 萬事如意", "red peonies and plum blossoms with a golden ruyi ornament, soft morning glow", "紅牡丹、梅花與金如意"),
+   ],
+   wishes=["初一早安！新春如意，祝您一整年順順利利。",
+           "新年快樂！祝您身體健康、笑口常開。",
+           "大年初一，祝您大吉大利、好運連連。"]),
+  dict(id="goat", h2="羊年吉祥話圖", intro="羊年專屬的吉祥話：三羊開泰、喜氣洋洋、羊年行大運。",
+   images=[
+    ("cnyday1-goat-01", "三羊開泰", "three cute golden sheep figurines on a red festive table with sunrise light and plum blossoms", "三隻金色小羊與梅花"),
+    ("cnyday1-goat-02", "喜氣洋洋", "a cute fluffy white sheep figurine wearing a red scarf among red lanterns, festive", "戴紅圍巾的白色小羊"),
+    ("cnyday1-goat-03", "羊年行大運", "a golden sheep figurine standing on a pile of gold coins with red lanterns, red and gold background", "站在金幣上的金色小羊"),
+    ("cnyday1-goat-04", "吉羊如意", "a golden sheep figurine beside a golden ruyi and red peonies, red and gold background", "金色小羊、如意與牡丹"),
+   ],
+   wishes=["三羊開泰、喜氣洋洋，祝您新的一年萬事如意。",
+           "羊年行大運，祝您身體健康、心想事成。",
+           "吉羊如意，祝您全家平安、福氣滿滿。"]),
+  dict(id="elder", h2="拜年長輩圖", intro="給爸媽、阿公阿嬤拜年，講健康長壽最貼心。",
+   images=[
+    ("cnyday1-elder-01", "恭喜發財", "a treasure bowl overflowing with gold ingots, plain red envelopes and red lanterns, gold sparkles", "聚寶盆、紅包與紅燈籠"),
+    ("cnyday1-elder-02", "福壽安康", "pink longevity peach buns and red peonies with gold decorations, festive red", "壽桃與紅牡丹"),
+    ("cnyday1-elder-03", "新年快樂 長命百歲", "an elegant red-crowned crane beside a green pine tree at sunrise, traditional Chinese painting style, red festive accents", "松樹與丹頂鶴"),
+   ],
+   wishes=["祝阿公阿嬤新年快樂、身體健康、長命百歲。",
+           "爸、媽，新年快樂！祝你們福壽安康、天天開心。",
+           "恭喜發財，祝您新的一年財源滾滾。"]),
+  dict(id="name", h2="打上名字的初一圖", intro="打上稱呼拜年，比貼圖多一分心意。",
+   images=[
+    ("cnyday1-name-01", "阿公 新春快樂", "red lanterns and red plum blossoms against a golden sunrise, a small golden sheep ornament", "紅燈籠、梅花與金色小羊"),
+    ("cnyday1-name-02", "美華姐 新年快樂", "blooming pink peach blossoms and red lanterns in morning sunlight", "桃花與紅燈籠"),
+   ],
+   wishes=["阿公，新春快樂！祝您身體健康、長命百歲。",
+           "美華姐，新年快樂，羊年行大運！"]),
+ ],
+ faq=[
+  ("2027 年大年初一是哪一天？",
+   ["2027 年大年初一是 <b>2 月 6 日（星期六）</b>，是羊年（丁未年）的第一天。除夕是前一天 2 月 5 日（星期五）。"]),
+  ("拜年吉祥話怎麼說？",
+   ["給長輩：「新年快樂，祝您身體健康、長命百歲。」給朋友：「新年快樂，羊年行大運！」給同事、客戶：「恭喜發財，祝您新的一年萬事如意。」羊年也可以說「三羊開泰」「喜氣洋洋」「吉羊如意」。"]),
+  ("初一早安圖什麼時候傳比較好？",
+   ["初一早上傳最有拜年的感覺。很多人除夕夜過了午夜就先傳一句新年快樂，初一早上再傳早安圖。"]),
+  ("這些初一圖可以免費存下來嗎？",
+   ["可以。這頁的圖都是早安圖王用 AI 做的，歡迎長按圖片存到手機，再傳給親友拜年。"]),
+  ("怎麼做一張打上名字的拜年圖？",
+   ["加 LINE 好友「早安圖王」，過年前約兩週起，選單「節慶圖」裡就有「過年大吉」，選好風格再打上「阿公新春快樂」；也可以點「自己打字」。加好友先送 5 張免費。"]),
+ ],
+ related=["chinese-new-year", "cny-eve", "caishen", "deity"],
+),
+
+# ───────────────────────────── 10. 初五迎財神 ─────────────────────────────
+dict(
+ slug="caishen", parent="chinese-new-year", kind="cny", crumb="初五迎財神圖片", short="初五迎財神圖片", emoji="💰",
+ title="2027 初五迎財神圖片｜財神爺早安圖、迎財神吉時與祝福語｜早安圖王",
+ desc="2027 大年初五是 2 月 10 日（星期三）。14 張初五迎財神圖片、財神爺早安圖、開市大吉圖，繁體中文、可長按存圖轉傳，附迎財神習俗、吉時說法與可複製的祝福語。加 LINE 好友免費做 5 張打上名字的。",
+ h1="初五迎財神圖片",
+ lead=["2027 年大年初五是 <b>2 月 10 日（星期三）</b>。初五迎財神，祝福親友財源廣進、生意興隆。",
+       "這頁有 14 張初五迎財神圖片、財神爺早安圖和開市大吉圖，還整理了迎財神的習俗和吉時說法，祝福語可以直接複製。歡迎長按存圖，傳給親友。"],
+ info=[
+  dict(id="custom", h2="初五迎財神的習俗", body=[
+   "大年初五俗稱「隔開」，也叫「破五」，過年期間的許多禁忌到這天告一段落。民間傳說這天是財神爺的生日，所以家家戶戶迎財神，很多店家也選在初五「開市」。",
+   ("ul", ["<b>迎財神</b>：在家門口或店門口擺香案，準備水果、發糕、年糕等供品，點香迎接財神爺。",
+           "<b>放鞭炮</b>：傳統上會放鞭炮迎財神；住公寓的人多半改成打開大門、說幾句吉祥話。",
+           "<b>開市</b>：不少店家初五開門做生意，討個「開市大吉」的好彩頭。",
+           "<b>傳祝福</b>：傳一張財神圖給親友、客戶，祝對方新的一年財源廣進。"]),
+   "初四是「接神」，迎接灶神等神明回到人間；初五才是迎財神，兩件事不一樣。",
+  ]),
+  dict(id="time", h2="迎財神吉時怎麼看？", body=[
+   "迎財神的時間，各地說法不太一樣，沒有一定的標準：",
+   ("ul", ["常見的是<b>初五一大早</b>開門迎財神。",
+           "也有一種說法是<b>初四深夜的子時</b>（約晚上 11 點後，傳統上算是初五的開始）就迎接；這只是其中一種習俗，不是唯一的時間。",
+           "講究的人會翻<b>當年的農民曆</b>，挑當天的吉時。"]),
+   "照自己家裡的習慣、方便的時間，誠心迎接最重要。",
+  ]),
+ ],
+ sections=[
+  dict(id="caishen", h2="財神爺迎財神圖", intro="財神爺手捧金元寶、聚寶盆，初五一早傳一張，喜氣又吉利。",
+   images=[
+    ("caishen-god-01", "初五迎財神", "Caishen the God of Wealth in an ornate red and gold embroidered imperial robe and a black official hat, kind smiling face with a long black beard, holding a large gold yuanbao ingot, gold coins and auspicious clouds around", "手捧金元寶的財神爺", "deity"),
+    ("caishen-god-02", "財神到", "Caishen the God of Wealth standing on auspicious golden clouds in a red and gold robe, holding a treasure bowl overflowing with gold ingots, golden halo, festive red sky", "站在祥雲上、捧著聚寶盆的財神爺", "deity"),
+    ("caishen-god-03", "迎財神 財源廣進", "Caishen the God of Wealth seated on a temple throne, red lanterns and offerings of mandarin oranges and sweet rice cakes on the altar table, incense smoke, warm golden light, reverent", "廟中端坐的財神爺與供品", "deity"),
+    ("caishen-god-04", "招財進寶", "Caishen the God of Wealth in a red and gold robe holding a golden ruyi scepter, gold ingots and red plum blossoms around, golden halo", "手持如意的財神爺", "deity"),
+    ("caishen-god-05", "財神保佑 好運旺旺", "Caishen the God of Wealth smiling kindly, surrounded by golden coins and blooming red peonies, golden halo, auspicious clouds", "金幣與牡丹環繞的財神爺", "deity"),
+   ],
+   wishes=["初五迎財神！祝您財源廣進、荷包滿滿。",
+           "財神到、好運到，祝您新的一年發大財、行大運。",
+           "迎財神，祝您全家平安、財運亨通。"]),
+  dict(id="morning", h2="初五早安圖", intro="不放神明像，用金元寶、聚寶盆、紅燈籠，一樣喜氣洋洋。",
+   images=[
+    ("caishen-morning-01", "初五早安 財源滾滾", "a golden treasure bowl overflowing with gold ingots and gold coins on a red silk table, red lanterns, golden morning sunlight", "裝滿金元寶的聚寶盆"),
+    ("caishen-morning-02", "初五早安", "red lanterns and red plum blossom branches against a bright golden sunrise sky, gold sparkles", "日出天空下的紅燈籠與梅花"),
+    ("caishen-morning-03", "大吉大利", "a plate of bright mandarin oranges with green leaves next to gold ingots on a red table, soft morning light", "一盤橘子與金元寶"),
+    ("caishen-morning-04", "迎財神 好運來", "a traditional red wooden double door wide open with warm sunlight streaming in, red lanterns hanging on both sides, gold coins on the doorstep", "打開的紅色大門迎進陽光"),
+   ],
+   wishes=["初五早安！開門迎財神，祝您今年財源滾滾。",
+           "早安，祝您大吉大利、好運一整年。",
+           "初五迎財神，祝您福氣、財氣一起來。"]),
+  dict(id="kaishi", h2="開市大吉圖", intro="很多店家初五開市，傳給做生意的朋友、老闆最合適。",
+   images=[
+    ("caishen-kaishi-01", "開市大吉", "a traditional Taiwanese shop front decorated with red silk ribbons and a big red silk flower ball, red lanterns, red firecracker paper scattered on the ground, bright morning", "掛著紅綵球的店面"),
+    ("caishen-kaishi-02", "生意興隆", "a traditional wooden abacus with gold ingots and gold coins on red silk, warm golden light", "算盤與金元寶"),
+    ("caishen-kaishi-03", "開市大吉 財源廣進", "strings of plain red firecrackers, gold ingots and red plum blossoms, festive red and gold", "紅鞭炮、金元寶與梅花"),
+   ],
+   wishes=["開市大吉！祝您生意興隆、客人滿滿。",
+           "新年開市，祝您財源廣進、一年比一年旺。",
+           "祝您開市順利、大展鴻圖。"]),
+  dict(id="name", h2="打上名字的迎財神圖", intro="打上對方的名字或稱呼，收到的人會特別開心。",
+   images=[
+    ("caishen-name-01", "阿明 財源廣進", "Caishen the God of Wealth in red and gold robe holding a gold ingot, gold coins and auspicious clouds, golden halo", "手捧元寶的財神爺", "deity"),
+    ("caishen-name-02", "王老闆 開市大吉", "gold ingots, red lanterns and plum blossoms on a red silk table, festive warm glow", "金元寶、紅燈籠與梅花"),
+   ],
+   wishes=["阿明，初五迎財神，祝你今年財源廣進！",
+           "王老闆，開市大吉，祝您生意興隆、天天客滿。"]),
+ ],
+ faq=[
+  ("2027 年初五迎財神是哪一天？",
+   ["2027 年大年初五是 <b>2 月 10 日（星期三）</b>，也是 2027 年春節連假的最後一天。前一天初四（2 月 9 日）是「接神」，初五才是迎財神。"]),
+  ("迎財神的吉時是幾點？",
+   ["各地說法不同，沒有一定。常見的是初五一大早開門迎財神；也有一種說法是初四深夜子時就迎接；想講究可以看當年的農民曆。照家裡的習慣、誠心迎接就好。"]),
+  ("迎財神要準備什麼？",
+   ["常見的有水果（像是橘子、鳳梨，取「大吉」「旺來」的好意頭）、發糕、年糕，再點香、說吉祥話。各地習俗不同，照家裡的習慣準備就好。"]),
+  ("這些財神圖可以免費存下來、傳給客戶嗎？",
+   ["可以。這頁的圖都是早安圖王用 AI 做的，歡迎長按圖片存到手機，再傳給親友、客戶。財神爺的圖依傳統廟宇畫風製作，莊重不搞笑。"]),
+  ("怎麼做一張打上名字的迎財神圖？",
+   ["加 LINE 好友「早安圖王」，點選單「神佛加持」選「財神」，再打上「阿明財源廣進」這樣的字；也可以點「自己打字」。加好友先送 5 張免費。"]),
+ ],
+ related=["chinese-new-year", "deity", "kaigong", "generator"],
+),
+
+# ───────────────────────────── 11. 開工早安圖 ─────────────────────────────
+dict(
+ slug="kaigong", parent="chinese-new-year", kind="kaigong", crumb="開工早安圖", short="開工早安圖", emoji="🎊",
+ title="2027 開工早安圖｜開工大吉圖片、新春開工祝福語｜早安圖王",
+ desc="2027 春節連假預計到 2 月 10 日，多數公司行號 2 月 11 日（星期四，初六）開工，以人事總處公告為準。14 張開工大吉圖片、開工早安圖、給同事與客戶的開工祝福圖，繁體中文、可長按存圖轉傳，附可複製的開工祝福語。加 LINE 好友免費做 5 張。",
+ h1="開工早安圖",
+ lead=["2027 年春節連假是 2 月 4 日到 2 月 10 日，<b>多數公司行號在 2 月 11 日（星期四，初六）開工</b>。也有店家初五就開市，或另外挑吉日；實際上班日以行政院人事行政總處公告及各公司規定為準。",
+       "這頁有 14 張開工大吉圖片、開工早安圖和給同事、客戶的祝福圖，祝福語可以直接複製。開工第一天早上傳一張，新的一年順順利利。"],
+ info=[
+  dict(id="date", h2="2027 開工是哪一天？", body=[
+   "依媒體整理的 2027 年行事曆，春節連假是 <b>2 月 4 日（星期四，小年夜）到 2 月 10 日（星期三，初五）</b>，共 7 天。連假後第一個上班日是 <b>2 月 11 日（星期四，初六）</b>，多數公司行號在這天開工。",
+   "各行各業不一樣：有的店家初五迎財神後就開市，有的工廠、小吃店會另外看日子開工，也有服務業過年照常營業。實際上班日以行政院人事行政總處公告及各公司規定為準。",
+   ("ul", ["<b>開工拜拜</b>：不少公司、店家開工當天會拜拜，祈求新的一年平安順利。",
+           "<b>開工紅包</b>：有些老闆會發開工紅包給員工討吉利，金額、有沒有發，各公司不同。",
+           "<b>互道祝福</b>：同事、客戶之間說聲「開工大吉」「新年順利」。"]),
+  ]),
+ ],
+ sections=[
+  dict(id="daji", h2="開工大吉圖片", intro="金元寶、紅燈籠、日出，開工第一天傳最有精神。",
+   images=[
+    ("kaigong-daji-01", "開工大吉", "gold ingots, plain red envelopes and red lanterns on a red silk background, festive gold sparkles", "金元寶、紅包與紅燈籠"),
+    ("kaigong-daji-02", "開工大吉 萬事順利", "a big red silk ribbon bow and a small potted money plant on a tidy wooden desk, morning sunlight through a window, red lanterns in the background", "辦公桌上的紅綵帶與盆栽"),
+    ("kaigong-daji-03", "新春開工 大展鴻圖", "a flock of wild geese flying across a brilliant golden sunrise above a sea of clouds", "雲海日出與飛翔的雁群"),
+    ("kaigong-daji-04", "開工順利", "a golden treasure bowl with gold coins and a small golden sheep ornament on a red table, warm light", "聚寶盆與金色小羊"),
+    ("kaigong-daji-05", "開春大吉", "red lanterns and red plum blossoms over a traditional Taiwanese old street in bright morning light, no people", "晨光中掛滿紅燈籠的老街"),
+   ],
+   wishes=["開工大吉！祝您新的一年萬事順利、步步高升。",
+           "新春開工，祝您大展鴻圖、財源廣進。",
+           "開工順利，今年一起加油！"]),
+  dict(id="morning", h2="開工早安圖", intro="開工第一天早上傳給家人、朋友，收假的心情也會好一點。",
+   images=[
+    ("kaigong-morning-01", "開工早安", "a cup of hot coffee and a small red lantern on a sunny desk by a window, a plum blossom twig in a vase", "窗邊的熱咖啡與小紅燈籠"),
+    ("kaigong-morning-02", "早安 新年新氣象", "bright morning sunlight over green Taiwanese mountains and rice fields, red plum blossoms in the foreground", "晨光中的山與稻田、紅梅"),
+    ("kaigong-morning-03", "收假早安 平安順心", "a clay teapot, a cup of hot tea and mandarin oranges on a wooden table in soft morning light", "陶壺、熱茶與橘子"),
+    ("kaigong-morning-04", "開工早安 一路長紅", "red peonies and red lanterns in golden morning light, festive", "晨光中的紅牡丹與紅燈籠"),
+   ],
+   wishes=["開工早安！收假第一天，慢慢來、別太累。",
+           "早安，新年新氣象，祝您今天順順利利。",
+           "開工早安，祝您一路長紅、平安順心。"]),
+  dict(id="work", h2="給同事、老闆、客戶的開工祝福圖", intro="傳到公司群組或給客戶，莊重又討喜。",
+   images=[
+    ("kaigong-work-01", "生意興隆 財源廣進", "a traditional wooden abacus, gold ingots and mandarin oranges on red silk, warm golden light", "算盤、金元寶與橘子"),
+    ("kaigong-work-02", "步步高升", "a staircase of golden steps rising into bright light, red silk ribbons, gold sparkles", "往上的金色階梯"),
+    ("kaigong-work-03", "合作愉快 新年順利", "two cups of hot tea side by side on a wooden table with plum blossoms and red festive decorations, warm light", "兩杯熱茶與梅花"),
+   ],
+   wishes=["新年開工，祝您生意興隆、財源廣進。",
+           "開工大吉，謝謝去年的照顧，今年也請多多指教。",
+           "祝您新的一年步步高升、合作愉快。"]),
+  dict(id="name", h2="打上名字的開工圖", intro="給主管、同事、老客戶，打上稱呼更有誠意。",
+   images=[
+    ("kaigong-name-01", "王經理 開工大吉", "gold ingots and red lanterns on a red silk table with plum blossoms, festive glow", "金元寶、紅燈籠與梅花"),
+    ("kaigong-name-02", "阿明 開工順利", "a cup of hot coffee and a small red lantern on a sunny desk by a window", "窗邊的熱咖啡與小紅燈籠"),
+   ],
+   wishes=["王經理，開工大吉！今年也請多多指教。",
+           "阿明，開工順利，今年一起加油！"]),
+ ],
+ faq=[
+  ("2027 年開工是哪一天？",
+   ["依媒體整理的 2027 年行事曆，春節連假是 2 月 4 日到 2 月 10 日，連假後第一個上班日是 <b>2 月 11 日（星期四，初六）</b>，多數公司行號在這天開工。各行業、各公司不同，以行政院人事行政總處公告及各公司規定為準。"]),
+  ("開工祝福語怎麼說？",
+   ["給同事：「開工大吉，今年一起加油！」給老闆、主管：「開工大吉，祝公司生意興隆、財源廣進。」給客戶：「新年開工，謝謝去年的照顧，今年也請多多指教。」"]),
+  ("開工紅包是什麼？",
+   ["有些老闆會在開工當天發紅包給員工，討個新年好彩頭。有沒有發、金額多少，每間公司都不一樣，不是一定會有。"]),
+  ("這些開工圖可以免費存下來嗎？",
+   ["可以。這頁的圖都是早安圖王用 AI 做的，歡迎長按圖片存到手機，再傳到公司群組或給客戶。"]),
+  ("怎麼做一張打上名字的開工圖？",
+   ["加 LINE 好友「早安圖王」，點選單「自己打字」，輸入「王經理開工大吉」，大約 20 秒就做好；過年期間選單「節慶圖」的「過年大吉」也可以用。加好友先送 5 張免費。"]),
+ ],
+ related=["chinese-new-year", "caishen", "deity", "generator"],
 ),
 ]
 

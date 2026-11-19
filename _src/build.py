@@ -4,7 +4,7 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 from parts import *
 import fonts
 import topic_page
-from topics import TOPICS
+from topics import TOPICS, TOPIC_BY_SLUG
 
 OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "")
 TODAY = datetime.date.today().isoformat()
@@ -57,10 +57,14 @@ def offers():
 
 def jsonld_topic(t, body):
     url = BASE + t["slug"] + "/"
+    trail = [("早安圖王", BASE)]
+    if t.get("parent"):  # 過年子頁：早安圖王 › 過年祝福圖 › 除夕早安圖
+        p = TOPIC_BY_SLUG[t["parent"]]
+        trail.append((p["crumb"], BASE + p["slug"] + "/"))
+    trail.append((t["crumb"], url))
     return ld([
         {"@type": "BreadcrumbList", "itemListElement": [
-            {"@type": "ListItem", "position": 1, "name": "早安圖王", "item": BASE},
-            {"@type": "ListItem", "position": 2, "name": t["crumb"], "item": url}]},
+            {"@type": "ListItem", "position": i, "name": n, "item": u} for i, (n, u) in enumerate(trail, 1)]},
         {"@type": "FAQPage", "@id": url + "#faq", "mainEntity": faq_items(body)},
     ])
 
@@ -164,4 +168,9 @@ open(OUT + "sitemap.xml", "w", encoding="utf8", newline="\n").write(
     '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'
     ' xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n'
     + "\n".join(urls) + "\n</urlset>\n")
+# 範例圖還沒生的頁面：頁面照樣產生（不放破圖），但要提醒上線前補圖
+for t in TOPICS:
+    miss = topic_page.missing_images(t)
+    if miss:
+        print(f"WARNING 缺範例圖 {t['slug']}：{len(miss)} 張（例：{miss[0]}.webp）")
 print('ok')

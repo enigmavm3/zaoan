@@ -671,6 +671,7 @@ td.num { font-family: var(--serif); font-weight: 900; font-size: 22px; color: va
   color: var(--ink); text-decoration: none; font-size: 18px; font-weight: 700;
 }
 .topic-jump a:hover { color: var(--red); border-color: var(--red); }
+.doc .topic-jump { padding: 0; margin: 14px 0 0; justify-content: flex-start; }
 .pic-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 18px 0 8px; }
 .pic { margin: 0; background: var(--card); border: 1px solid var(--rule); border-radius: 16px; padding: 8px; }
 .pic img { display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; border-radius: 10px; }
